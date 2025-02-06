@@ -88,7 +88,7 @@ const NavLink = styled(Link)`
   }
 `;
 
-const NavCollapse = styled.div`
+const NavCollapse = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -181,7 +181,7 @@ const Navbar = () => {
   const admin = localStorage.getItem("admin") === "true";
   let username = token ? localStorage.getItem("username") : null;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logOut = () => {
     localStorage.removeItem("token");
