@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 import "./App.css";
 
@@ -24,7 +24,7 @@ import Admin from "./pages/Admin";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/" element={<Layout />}>
@@ -43,7 +43,7 @@ function App() {
           <Route path="faq" element={<Faq />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
