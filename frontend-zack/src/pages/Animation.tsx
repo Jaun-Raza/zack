@@ -15,7 +15,6 @@ import { createCircularImage, createHexagonImage } from "../utils/imageUtils";
 import Circle from '../assets/images/circle.png'
 import Hectagon from '../assets/images/hectagon.png'
 import RoundedSquare from '../assets/images/rounded_square.png'
-import SelectionArrow from '../assets/images/selection_arrow.png'
 
 const Container = styled.div`
   display: flex;

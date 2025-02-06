@@ -199,6 +199,7 @@ const Navbar = () => {
         <NavToggler type="button" aria-label="Toggle navigation" onClick={() => setIsOpen(!isOpen)}>
           <NavTogglerIcon />
         </NavToggler>
+        {/* @ts-ignore */}
         <NavCollapse isOpen={isOpen}>
           <NavList>
             <NavLink to="/" className={cn(path.pathname === "/" && "active")}>
