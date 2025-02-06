@@ -1,0 +1,135 @@
+body {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.homer {
+  height: auto;
+  padding: 2rem;
+}
+
+.labelcheck {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+.checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkbox input:checked ~ .checkmark {
+  @apply !bg-primary;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.homer h2 {
+  margin-top: 4rem;
+  color: #fff;
+  font-size: 2.8rem;
+}
+
+.ex {
+  font-size: 0.6rem;
+}
+
+.ex1 {
+  font-size: 30px;
+}
+
+.ex2 {
+  width: 4rem;
+  margin-right: 0.3rem;
+  margin-left: 0.3rem;
+}
+
+.ef1 {
+  border: 2px solid transparent;
+  border-image: linear-gradient(
+    138deg,
+    rgba(254, 1, 231, 1) 35%,
+    rgba(255, 16, 0, 1) 100%
+  );
+  border-image-slice: 1;
+}
+
+.ef2 {
+  border-radius: 50%;
+}
+
+.ex-a {
+  font-size: 18px;
+  padding: 0.4rem 1.2rem;
+  text-decoration: none;
+  margin-top: 2rem;
+  color: white;
+  border-radius: 0.4rem;
+  background: rgb(0, 219, 255);
+  background: linear-gradient(
+    140deg,
+    rgba(0, 219, 255, 1) 35%,
+    rgba(0, 82, 255, 1) 100%
+  );
+  outline: 4px solid rgba(0, 219, 255, 0.2);
+}
+
+.show-ex {
+  margin-top: 5rem;
+}
+
+.he {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(
+    100vh - 100px
+  ); /* Adjust based on the height of your navbar */
+  margin: 0;
+}

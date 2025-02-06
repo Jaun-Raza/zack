@@ -1,0 +1,398 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricThin.otf");
+  font-weight: 100; /* thin */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricExtraLight.otf");
+  font-weight: 200; /* extra light */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricLight.otf");
+  font-weight: 300; /* light */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricRegular.otf");
+  font-weight: 400; /* regular */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricMedium.otf");
+  font-weight: 500; /* medium */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricSemiBold.otf");
+  font-weight: 600; /* semi-bold */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricBold.otf");
+  font-weight: 700; /* bold */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricExtraBold.otf");
+  font-weight: 800; /* extra-bold */
+}
+@font-face {
+  font-family: "URW Geometric";
+  src: url("./assets/fonts/URWGeometricBlack.otf");
+  font-weight: 900; /* black */
+}
+@font-face {
+  font-family: "YuGothic";
+  src: url("./assets/fonts/YuGothicLight.ttf");
+  font-weight: 300; /* Light */
+}
+
+body {
+  background-color: black !important;
+  color: #ffffff;
+
+  font-family: "URW Geometric";
+  font-size: 16px;
+
+  display: flex;
+  flex-direction: column;
+  background: url('./assets/images/background.png') no-repeat center center/cover;
+  backdrop-filter: brightness(0.3);
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.logo {
+  height: 2.4rem;
+  pointer-events: none;
+}
+
+.App-link {
+  @apply text-primary;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom Sidebar */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #282c34;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgb(214, 30, 238), #ff2092);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #37a6c4;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 2rem;
+  background-color: #0e0e0e;
+  width: 100%;
+}
+
+.text-center {
+  font-size: 0.6rem;
+  color: #3b3b3b;
+}
+
+.ghij {
+  justify-content: space-between;
+}
+
+.login,
+.signup {
+  @apply !border-0 border-primary !text-black;
+  padding: 0.1rem 1rem 0 1rem;
+  background: transparent !important;
+  font-size: 19px;
+}
+.signup {
+  @apply !bg-primary;
+}
+.download {
+  padding: 0.1rem 2rem 0 2rem;
+  border-radius: 25px;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+@media screen and (min-width: 991px) {
+  .login {
+    margin-left: 0.8rem;
+  }
+  .signup {
+    margin-left: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .login {
+    margin-top: 0.7rem;
+  }
+  .download {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Adjust styles for screens with a maximum width of 480px */
+  .App {
+    font-size: 14px;
+  }
+
+  .App-logo {
+    height: 30vmin;
+  }
+
+  .text-center {
+    font-size: 0.5rem;
+  }
+}
+
+/* Adjust styles for screens with a maximum width of 320px */
+@media screen and (max-width: 320px) {
+  .App {
+    font-size: 12px;
+  }
+
+  .App-logo {
+    height: 25vmin;
+  }
+
+  .text-center {
+    font-size: 0.4rem;
+  }
+}
+
+.ghij {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  flex: 1;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.custom-height {
+  min-height: calc(100vh - 100px);
+}
+
+.bg-darkblue {
+  background: #0b101e;
+}
+.bg-darkblue-trans {
+  background: rgba(6, 8, 15, 0.5);
+}
+.text-gray {
+  color: #c2c3c2;
+}
+footer {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.foot-stats {
+  background: #2c437f;
+  border-radius: 30px;
+}
+.foot-stats span {
+  display: block;
+  margin-top: -0.25rem;
+  text-shadow: 0px 0px 4px #70ff44;
+}
+
+@media screen and (max-width: 520px) {
+  .foot-statss {
+  }
+}
+.badge {
+  font-size: 16px;
+  margin-top: -1rem;
+}
+
+.upload-zone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.946);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+}
+
+.hexagon {
+  height: 250px;
+  aspect-ratio: cos(30deg);
+  clip-path: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
+}
+
+.search-bar {
+  width: 25%;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin-top: 1rem;
+  width: 75%;
+  gap: 1rem;
+}
+
+.comment-text {
+  width: 50%;
+  text-align: center;
+}
+
+.comment-user-image {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.actions .btn {
+  width: 50px;
+  height: 50px;
+}
+
+.delete-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.upload-main {
+  background: linear-gradient(to bottom right, rgb(144, 21, 160), #911454);
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 13.6rem;
+  color: black;
+  border-radius: 2rem;
+  outline: 6px solid #86efad49;
+}
+
+.animated-background {
+  background-size: 400%;
+
+  -webkit-animation: animation 3s ease infinite;
+  -moz-animation: animation 3s ease infinite;
+  animation: animation 3s ease infinite;
+}
+
+@keyframes animation {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --primary: #70ff44 !important;
+    --bs-primary-rgb: #70ff44 !important;
+  }
+
+  .gradient-bg {
+    @apply !from-[#60FF1C] !to-[#0CF900] !bg-gradient-to-r;
+  }
+
+  .gradient-bg2 {
+    @apply !from-[#F7DE00] !to-[#F4C700] !bg-gradient-to-r;
+  }
+}

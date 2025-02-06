@@ -1,0 +1,30 @@
+.image img {
+  width: auto;
+  height: auto;
+  max-width: 400px;
+}
+
+.image .info {
+  margin-bottom: 1.5rem;
+}
+.image .info p {
+  font-size: 19px;
+}
+.info span {
+  @apply rounded-lg rounded-r-none;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  width: 90%;
+  height: 40px;
+  background-color: #fff;
+  color: #000;
+  white-space: nowrap;
+}
+.image .infos {
+  margin-top: 3rem;
+}
+.infos .btn {
+  @apply rounded-lg rounded-l-none w-fit border-0 !bg-primary;
+  height: 40px;
+}

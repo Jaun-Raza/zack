@@ -1,0 +1,10 @@
+.pri {
+    max-width: 62rem;
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: left;
+}
+
+.pri h2 {
+    text-align: center;
+}

@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  name         String    @unique
+  email        String    @unique
+  password     String
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  resetToken   String?
+  admin        Boolean   @default(false)
+  profileImage String?   @map("profile_image")
+  verified     Boolean   @default(false)
+  comments     Comment[]
+  images       Image[]
+  likes        Like[]
+
+  @@map("users")
+}
+
+model Image {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  userId    Int?      @map("user")
+  pub       Boolean   @default(false)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  comments  Comment[]
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes     Like[]
+
+  @@index([userId], map: "images_user_fkey")
+  @@map("images")
+}
+
+model Like {
+  id      Int     @id @default(autoincrement())
+  userId  Int
+  imageId Int
+  like    Boolean
+  image   Image   @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, imageId])
+  @@index([imageId], map: "likes_imageId_fkey")
+  @@map("likes")
+}
+
+model Comment {
+  id      Int      @id @default(autoincrement())
+  userId  Int
+  imageId Int
+  comment String
+  date    DateTime @default(now())
+  image   Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([imageId], map: "comments_imageId_fkey")
+  @@index([userId], map: "comments_userId_fkey")
+  @@map("comments")
+}

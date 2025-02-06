@@ -1,0 +1,30 @@
+.picker{
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+.picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+.oix {
+    margin-bottom: -4rem;
+}
+@media screen and (max-width: 768px) {
+    .cont {
+        flex-direction: column;
+    }
+    .oix {
+        margin-bottom: 0;
+    }
+    .wegjun {
+        padding-top: 10rem;
+        padding-bottom: 10rem;
+    }
+}
