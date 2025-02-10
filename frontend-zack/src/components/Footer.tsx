@@ -1,22 +1,9 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ImageService } from "../services/apiService";
 import Logo from "../assets/images/logo.png";
 
 const Footer = () => {
-  const [count, setCount] = useState(0);
   const downloadLink = "https://mediafire.com/";
-
-  useEffect(() => {
-    ImageService.count()
-      .then((count) => {
-        setCount(count);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
 
   return (
     <footer className="bg-black pt-4">
@@ -39,13 +26,13 @@ const Footer = () => {
           <div className="col-md-6 col-12">
             <div className="float-end flex">
               <div>
-                <h2>About</h2>
+                <h2 style={{color: '#fff'}}>About</h2>
                 <Link className="text-white text-decoration-none" to="/faq">
                   F.A.Q
                 </Link>
               </div>
               <div>
-                <h2>Legal</h2>
+                <h2 style={{color: '#fff'}}>Legal</h2>
                 <Link className="text-white text-decoration-none" to="/terms">
                   Terms of Service
                 </Link>
@@ -54,16 +41,7 @@ const Footer = () => {
                   Privacy Policy
                 </Link>
               </div>
-              <div>
-                <h2>Statistics</h2>
-                <span>
-                  <span style={{color: '#ea1ebd'}}>{count}</span> Uploads
-                </span>
-                <br />
-                <span>
-                  <span style={{color: '#ea1ebd'}}>0</span> Screenshots
-                </span>
-              </div>
+
             </div>
           </div>
         </div>

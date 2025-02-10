@@ -1,24 +1,61 @@
 import * as React from "react";
-
-import { cn } from "@/lib/utils";
+import styled from "styled-components";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
+const StyledInput = styled.input`
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem;
+  padding-left: -5px;
+  font-size: 0.875rem; 
+  line-height: 1.25rem;
+  border-radius: 1rem;
+  background-color: black; 
+  border: none;
+  outline: none;
+  
+ 
+  &[type="file"] {
+    border: 0;
+    background-color: transparent;
+    font-size: 0.875rem; 
+    font-weight: 500;
+    color: #0a0a0a; 
+    }
+    
+    
+    &::placeholder {
+      color: #737373;
+  }
+
+  
+  &:disabled {
+    cursor: not-allowed; 
+    opacity: 0.5; 
+    }
+    
+    
+  @media (prefers-color-scheme: dark) {
+    border-color: #262626; 
+    background-color: #0a0a0a;
+    color: #f5f5f5; 
+    &::placeholder {
+      color: #a3a3a3;
+    }
+
+    &:focus-visible {
+      outline-color: #d4d4d4; 
+    }
+  }
+`;
+
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    return (
-      <input
-        type={type}
-        className={cn(
-          "flex h-10 w-full rounded-md bg-black px-3 py-2 text-sm text-white file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:file:text-neutral-50 dark:placeholder:text-neutral-400 dark:focus-visible:ring-neutral-300",
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
+  ({ type, ...props }, ref) => {
+    return <StyledInput type={type} ref={ref} {...props} />;
   }
 );
+
 Input.displayName = "Input";
 
 export { Input };

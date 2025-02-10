@@ -187,7 +187,7 @@ const UploadText = styled.p`
   font-family: "YuGothic", sans-serif;
   font-weight: 300;
   font-size: 18px;
-  color: gray;
+  color: #fff;
   margin-top: -10px;
 `;
 

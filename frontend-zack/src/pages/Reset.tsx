@@ -1,13 +1,55 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
+import styled from "styled-components";
 import { AuthService } from "../services/apiService";
-import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const FormWrapper = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    input {
+      color: #000;
+      background-color: #fff;
+    }
+  }
+`;
+
+const Title = styled.h1`
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+`;
+
+const Button = styled.button`
+  background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+  color: white;
+  padding: 5px 1.3rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  margin-top: 1rem;
+`;
 
 function Reset() {
   const { code } = useParams();
-
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,34 +73,29 @@ function Reset() {
     }
   };
 
+
   return (
-    <div className="flex justify-center items-center custom-height">
-      <div className="auth-form">
-        <h1 className="font-bold">Reset Password</h1>
-        <br />
+    <Container>
+      <FormWrapper>
+        <Title>Reset Password</Title>
         <form onSubmit={handleReset}>
           <Input
             type="password"
             placeholder="Password"
-            className="form-control mt-3"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <Input
             type="password"
             placeholder="Confirm Password"
-            className="form-control mt-3"
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <br />
-          {error && <p className="text-danger">{error}</p>}
-          <button type="submit" className="btn !bg-primary mb-3">
-            Change Password
-          </button>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <Button type="submit">Change Password</Button>
         </form>
-      </div>
-    </div>
+      </FormWrapper>
+    </Container>
   );
 }
 

@@ -1,9 +1,69 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-
+import styled from "styled-components";
 import { AuthService } from "../services/apiService";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
+
+const SignUpContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const AuthForm = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      color: #000;
+      background-color: #fff;
+    }
+  }
+`;
+
+const FormTitle = styled.h1`
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  i {
+    font-size: 1.5rem;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  color: #dc3545;
+  text-align: center;
+`;
+
+const SubmitButton = styled.button`
+  background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+  color: white;
+  padding: 5px 1.3rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+
+  span {
+    color: #ff2092;
+  }
+`;
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -35,15 +95,15 @@ function SignUp() {
   };
 
   return (
-    <div className="flex justify-center items-center custom-height">
-      <div className="auth-form">
-        <h1 className="font-bold">Register</h1>
+    <SignUpContainer>
+      <AuthForm>
+        <FormTitle><i className="fa fa-user-plus" aria-hidden="true"></i> 
+        Register</FormTitle>
         <br />
         <form onSubmit={handleRegister}>
           <Input
             type="text"
             placeholder="Username"
-            className="form-control"
             onChange={(e) => setUsername(e.target.value)}
             minLength={3}
             maxLength={24}
@@ -52,29 +112,25 @@ function SignUp() {
           <Input
             type="email"
             placeholder="Email"
-            className="form-control mt-3"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <Input
             type="password"
             placeholder="Password"
-            className="form-control mt-3"
             onChange={(e) => setPassword(e.target.value)}
             minLength={6}
             required
           />
           <br />
-          {error && <p className="text-danger">{error}</p>}
-          <button type="submit" className="btn !bg-primary mb-3">
-            Sign Up
-          </button>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <SubmitButton type="submit">Sign Up</SubmitButton>
         </form>
-        <Link to="/login" className="text-white decoration-transparent">
-          Already have an account? <span className="!text-primary">Login</span>
-        </Link>
-      </div>
-    </div>
+        <StyledLink to="/login">
+          Already have an account? <span>Login</span>
+        </StyledLink>
+      </AuthForm>
+    </SignUpContainer>
   );
 }
 

@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ImageService } from "../services/apiService";
@@ -15,6 +15,7 @@ import { createCircularImage, createHexagonImage } from "../utils/imageUtils";
 import Circle from '../assets/images/circle.png'
 import Hectagon from '../assets/images/hectagon.png'
 import RoundedSquare from '../assets/images/rounded_square.png'
+import Upload from "../assets/images/upload.png"
 
 const Container = styled.div`
   display: flex;
@@ -47,9 +48,8 @@ const GradientText = styled.span`
 const Badge = styled.span`
   background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
   color: black;
-  font-size: 14px;
-  padding: 4px 8px;
-  border-radius: 8px;
+  font-size: 24px;
+  padding: 0 2px;
   display: inline-block;
   margin-left: 8px;
 `;
@@ -57,8 +57,8 @@ const Badge = styled.span`
 const Description = styled.p`
   font-family: "YuGothic", sans-serif;
   font-weight: 300;
-  font-size: 1rem;
-  color: gray;
+  font-size: 18px;
+  color: #fff;
   margin-top: -8px;
 `;
 
@@ -80,6 +80,22 @@ const ColorInput = styled.input`
   margin: 0 8px;
 `;
 
+const Info = styled.div`
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+
+  p {
+    color: #fff;
+
+    span {
+      color: #ea1ebd;
+    }
+  }
+`;
+
 export default function Animation() {
   const navigate = useNavigate();
 
@@ -87,6 +103,7 @@ export default function Animation() {
   const [color1, setColor1] = useState("#FF0000");
   const [color2, setColor2] = useState("#0000FF");
   const [uploading, setUploading] = useState(0);
+  const [count, setCount] = useState(0);
 
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -158,6 +175,16 @@ export default function Animation() {
     }
   };
 
+  useEffect(() => {
+      ImageService.count()
+        .then((count) => {
+          setCount(count);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, []);
+
   return (
     <Container>
       <Homer>
@@ -167,11 +194,10 @@ export default function Animation() {
         </Title>
 
         <Description>
-          Spice up your profile picture with a nice border, animation, and more
-          to come!
+          Spice up your pictures with profile effects!
         </Description>
         <br />
-        <div>
+        <div style={{ borderRadius: '0.25rem' }}>
           <Select
             disabled={uploading !== 0}
             onValueChange={(value) => setAction(parseInt(value))}
@@ -180,9 +206,17 @@ export default function Animation() {
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent className="upload-main !h-full">
-              <SelectItem value="1"><img src={Circle} alt="circle" /> <span>Circular</span></SelectItem>
-              <SelectItem value="2"><img src={RoundedSquare} alt="rounded" /> <span>Rounded</span></SelectItem>
-              <SelectItem value="3"><img src={Hectagon} alt="circle" /> <span>Hectagon</span></SelectItem>
+            <SelectItem value="1"><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
+              <img style={{width: '25px'}} src={Circle} alt="rounded" /> <span >Circular</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+        height: '100%'}} /></div></div></SelectItem>
+          
+              <SelectItem value="2" style={{borderBottom: '1px solid black', borderTop: '1px solid black'}}><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
+              <img style={{width: '25px'}} src={RoundedSquare} alt="rounded" /> <span >Rounded</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+        height: '100%'}} /></div></div></SelectItem>
+             
+             <SelectItem value="3"><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
+              <img style={{width: '25px'}} src={Hectagon} alt="rounded" /> <span >Hectagon</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+        height: '100%'}} /></div></div></SelectItem>
             </SelectContent>
           </Select>
 
@@ -196,7 +230,7 @@ export default function Animation() {
           />
 
           {action == 1 && uploading == 0 && (
-            <div style={{ marginTop: "16px", display: "flex", gap: "8px", justifyContent: 'center'}}>
+            <div style={{ marginTop: "16px", display: "flex", gap: "8px", justifyContent: 'center' }}>
               <ColorInput
                 type="color"
                 value={color1}
@@ -220,6 +254,10 @@ export default function Animation() {
             </UploadButton>
           )}
         </div>
+        <Info>
+          <p><span>{count}</span> Images Uploaded</p>
+          <p><span>120</span> Screenshot Token</p>
+        </Info>
       </Homer>
     </Container>
   );

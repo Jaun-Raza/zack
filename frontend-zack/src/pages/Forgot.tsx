@@ -1,8 +1,49 @@
 import React, { useState } from "react";
-
+import styled from "styled-components";
 import { AuthService } from "../services/apiService";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
+
+const ForgotContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const AuthForm = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      color: #000;
+      background-color: #fff;
+    }
+  }
+`;
+const FormTitle = styled.h1`
+  font-weight: bold;
+  color: white;
+  text-align: center;
+`;
+
+const ErrorMessage = styled.p`
+  color: #dc3545;
+  text-align: center;
+`;
+
+const SubmitButton = styled.button`
+  background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+  color: white;
+  padding: 5px 1.3rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+`;
 
 function Forgot() {
   const [email, setEmail] = useState("");
@@ -20,26 +61,23 @@ function Forgot() {
   };
 
   return (
-    <div className="flex justify-center items-center custom-height">
-      <div className="auth-form">
-        <h1 className="font-bold">Forgot Password</h1>
+    <ForgotContainer>
+      <AuthForm>
+        <FormTitle>Forgot Password</FormTitle>
         <br />
         <form onSubmit={handleForgot}>
           <Input
             type="email"
             placeholder="Email"
-            className="form-control mt-3"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <br />
-          {error && <p className="text-danger">{error}</p>}
-          <button type="submit" className="btn !bg-primary mb-3">
-            Send Mail
-          </button>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <SubmitButton type="submit">Send Mail</SubmitButton>
         </form>
-      </div>
-    </div>
+      </AuthForm>
+    </ForgotContainer>
   );
 }
 

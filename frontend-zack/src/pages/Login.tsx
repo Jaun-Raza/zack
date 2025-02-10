@@ -1,8 +1,73 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-
+import styled from "styled-components";
 import { AuthService } from "../services/apiService";
 import { Input } from "@/components/ui/input";
+
+
+const LoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+`;
+
+const AuthForm = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      color: #000;
+      background-color: #fff;
+    }
+  }
+`;
+
+const FormTitle = styled.h1`
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  i {
+    font-size: 1.5rem;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  color: #dc3545; 
+`;
+
+const SubmitButton = styled.button`
+  background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+  color: white;
+  padding: 5px 1.3rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+`;
+
+const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+
+  span {
+    color: #ff2092;
+  }
+`;
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -29,43 +94,36 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center custom-height">
-      <div className="auth-form">
-        <h1 className="font-bold">Log in</h1>
+    <LoginContainer>
+      <AuthForm>
+        <FormTitle><i className="fa-solid fa-user"></i> Login</FormTitle>
         <br />
         <form onSubmit={handleLogin}>
           <Input
             type="text"
             placeholder="Username"
-            className="form-control"
             onChange={(e) => setUsername(e.target.value)}
             required
           />
           <Input
             type="password"
             placeholder="Password"
-            className="form-control mt-3"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <br />
-          {error && <p className="text-danger">{error}</p>}
-          <button type="submit" className="btn !bg-primary mb-3">
-            Sign In
-          </button>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <SubmitButton type="submit">Sign In</SubmitButton>
         </form>
 
-        <div className="flex flex-column">
-          <Link to="/forgot" className="text-white decoration-transparent">
-            Forgot Password?
-          </Link>
-          <Link to="/signup" className="text-white decoration-transparent">
-            Don't have an account?{" "}
-            <span className="!text-primary">Sign Up</span>
-          </Link>
-        </div>
-      </div>
-    </div>
+        <FlexColumn>
+          <StyledLink to="/forgot">Forgot Password? <span>Reset Now</span></StyledLink>
+          <StyledLink to="/signup">
+            Don't have an account? <span>Sign Up</span>
+          </StyledLink>
+        </FlexColumn>
+      </AuthForm>
+    </LoginContainer>
   );
 }
 

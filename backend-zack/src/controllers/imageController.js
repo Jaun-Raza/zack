@@ -133,7 +133,7 @@ const setProfile = async (req, res) => {
 const get = async (req, res) => {
   const name = req.params.name;
   const noRedirect = req.query["no-redirect"];
-
+  console.log(name)
   try {
     const image = await prisma.image.findUnique({
       where: {
@@ -156,7 +156,7 @@ const get = async (req, res) => {
     });
 
     await b2.authorize();
-
+    
     // Download
     const downloadResponse = await b2.downloadFileByName({
       bucketName: process.env.B2_BUCKET_NAME,
@@ -197,7 +197,7 @@ const getMe = async (req, res) => {
       accountId: process.env.B2_APPLICATION_KEY_ID,
       applicationKey: process.env.B2_APPLICATION_KEY,
     });
-
+    
     await b2.authorize();
 
     // Download

@@ -15,7 +15,7 @@ const ContainerFluid = styled.div`
   width: 100%;
   padding: 0 15px;
   margin: 0 auto;
-  background-color: #ffffff14;
+  background-color:rgba(255, 255, 255, 0.05);
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
 `;
@@ -187,8 +187,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("admin");
-    window.location.reload();
-  };
+    window.location.reload()};
 
   return (
     <NavbarContainer>
@@ -202,24 +201,24 @@ const Navbar = () => {
         {/* @ts-ignore */}
         <NavCollapse isOpen={isOpen}>
           <NavList>
-            <NavLink to="/" className={cn(path.pathname === "/" && "active")}>
+            <NavLink to="/" className={cn(path.pathname === "/" && "active")} onClick={() => setIsOpen(false)}>
               Home
             </NavLink>
-            <NavLink to="/animation" className={cn(path.pathname === "/animation" && "active")}>
+            <NavLink to="/animation" className={cn(path.pathname === "/animation" && "active")} onClick={() => setIsOpen(false)}>
               Effects
             </NavLink>
-            {token && (
-              <NavLink to="/profile" className={cn(path.pathname === "/profile" && "active")}>
+            {/* {token && (
+              <NavLink to="/profile" className={cn(path.pathname === "/profile" && "active")} onClick={() => setIsOpen(false)}>
                 Profile
               </NavLink>
-            )}
+            )} */}
             {token && (
-              <NavLink to="/list" className={cn(path.pathname === "/list" && "active")}>
+              <NavLink to="/list" className={cn(path.pathname === "/list" && "active")} onClick={() => setIsOpen(false)}>
                 My Gallery
               </NavLink>
             )}
             {admin && (
-              <NavLink to="/admin" className={cn(path.pathname === "/admin" && "active")}>
+              <NavLink to="/admin" className={cn(path.pathname === "/admin" && "active")} onClick={() => setIsOpen(false)}>
                 Admin
               </NavLink>
             )}
@@ -229,8 +228,8 @@ const Navbar = () => {
               <SignOutButton onClick={logOut}>Sign out from {username}</SignOutButton>
             ) : (
               <>
-                <LoginButton to="/login">Login</LoginButton>
-                <RegisterButton to="/signup">Register</RegisterButton>
+                <LoginButton to="/login" onClick={() => setIsOpen(false)}>Login</LoginButton>
+                <RegisterButton to="/signup" onClick={() => setIsOpen(false)}>Register</RegisterButton>
               </>
             )}
           </Actions>
