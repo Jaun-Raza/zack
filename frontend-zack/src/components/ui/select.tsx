@@ -14,6 +14,7 @@ const StyledSelectTrigger = styled(SelectPrimitive.Trigger)`
   border-radius: 0.25rem;
   outline: none;
   color: #fff;
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -26,7 +27,8 @@ const StyledSelectTrigger = styled(SelectPrimitive.Trigger)`
     align-items: center;
     gap: 1rem;
     padding: 0 1rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 300;
     text-shadow: 0px 1.5px #00000078;
 
     div {
@@ -106,7 +108,9 @@ const StyledSelectItem = styled(SelectPrimitive.Item)`
   align-items: center;
   border-radius: 0.125rem;
   font-size: 0.875rem;
+  font-weight: 300;
   outline: none;
+  
   &:focus {
     background-color: var(--accent);
     color: var(--accent-foreground);
