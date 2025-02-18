@@ -160,7 +160,7 @@ export default function Home() {
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 15rem;
   height: 100vh;
 `;
 
@@ -218,7 +218,7 @@ const UploadLabel = styled.label`
   font-weight: 500;
   cursor: pointer;
   background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
-  box-shadow: 0px 0px 5px 7px rgba(90, 13, 100, 0.77);
+  box-shadow: 0px 0px 3px 5px rgba(90, 13, 100, 0.77);
   border-radius: 5px;
   overflow: hidden;
   margin: auto;
@@ -232,9 +232,11 @@ const UploadLabel = styled.label`
     gap: 5px;
     flex-direction: row;
     align-items: center;
+    text-shadow: 0px 1.5px #00000078;
 
     img {
       width: 25px;
+      text-shadow: 0px 1.5px #00000078;
     }
   }
 `;

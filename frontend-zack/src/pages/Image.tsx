@@ -18,8 +18,10 @@ import { cn } from "@/lib/utils";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { ImageService } from "../services/apiService";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import styled from 'styled-components';
 
 export default function Image() {
+  const [count, setCount] = useState(0);
   const { names: namesParam } = useParams();
   const names = useMemo(() => {
     if (!namesParam) return [];
@@ -39,36 +41,36 @@ export default function Image() {
     import.meta.env.VITE_API_URL !== ""
       ? import.meta.env.VITE_API_URL
       : window.location.protocol +
-        "//" +
-        window.location.hostname +
-        (window.location.port ? ":" + window.location.port : "");
+      "//" +
+      window.location.hostname +
+      (window.location.port ? ":" + window.location.port : "");
 
   const [api, setApi] = useState<CarouselApi>();
   const [slide, setSlide] = useState(0);
   const [exist, setExist] = useState(false);
   const [metadata, setMetadata] = useState<
     | {
+      id: number;
+      name: string;
+      likes: {
+        user: {
+          id: string;
+          name: string;
+        };
+        like: boolean;
+      }[];
+      comments: {
         id: number;
-        name: string;
-        likes: {
-          user: {
-            id: string;
-            name: string;
-          };
-          like: boolean;
-        }[];
-        comments: {
+        comment: string;
+        user: {
           id: number;
-          comment: string;
-          user: {
-            id: number;
-            name: string;
-            profileImage: string;
-          };
-          date: string;
-        }[];
-        liked: boolean | null;
-      }[]
+          name: string;
+          profileImage: string;
+        };
+        date: string;
+      }[];
+      liked: boolean | null;
+    }[]
     | null
   >(null);
 
@@ -113,17 +115,27 @@ export default function Image() {
     });
   }, [api]);
 
+  useEffect(() => {
+    ImageService.count()
+      .then((count) => {
+        setCount(count);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <div className="custom-height">
-      <h1 className="mt-10">
+      <h1 className="mt-10 text-white">
         You&apos;ve uploaded{" "}
-        <span className="gradient-bg text-transparent bg-clip-text font-bold">
+        <span className="!bg-primary text-transparent bg-clip-text font-bold">
           {namesParam?.split(",").length}
         </span>{" "}
         images!
       </h1>
       <p className="text-gray-500">
-        Copy and share your links with friends, or post them on social media!
+        Copy the links to share them!
       </p>
 
       {exist && names && names.length > 1 && (
@@ -132,7 +144,7 @@ export default function Image() {
             align: "center",
             loop: true,
           }}
-          className="w-full mx-auto max-w-[75vw]"
+          className="w-full mx-auto max-w-[95vw]"
           setApi={setApi}
         >
           <CarouselContent>
@@ -151,16 +163,17 @@ export default function Image() {
                     baseUrl={baseUrl}
                     single={false}
                     refetch={fetchImage}
+                    length={name.length}
                   />
                 </CarouselItem>
               ))}
           </CarouselContent>
           <CarouselPrevious
-            className="absolute md:left-[32%] !rounded-xl top-1/2 !w-10 !h-10"
+            className="absolute md:left-[32%] top-1/2 !w-10 !h-10"
             variant="default"
           />
           <CarouselNext
-            className="absolute md:right-[32%] !rounded-xl top-1/2 !w-10 !h-10"
+            className="absolute md:right-[32%] top-1/2 !w-10 !h-10"
             variant="default"
           />
         </Carousel>
@@ -172,8 +185,13 @@ export default function Image() {
           baseUrl={baseUrl}
           single
           refetch={fetchImage}
+          length={names.length}
         />
       )}
+      <Info>
+            <p><span>{count}</span> Images Uploaded</p>
+            <p><span>120</span> Screenshot Token</p>
+          </Info>
     </div>
   );
 }
@@ -184,6 +202,7 @@ export function ImageItem({
   baseUrl,
   single,
   refetch,
+  length,
 }: {
   name: string;
   metadata: {
@@ -210,6 +229,7 @@ export function ImageItem({
   } | null;
   baseUrl: string;
   single: boolean;
+  length: number;
   refetch: () => void;
 }) {
   const token = localStorage.getItem("token")
@@ -229,82 +249,92 @@ export function ImageItem({
   };
 
   return (
-    <div className="w-full pri image bg-black rounded-xl">
+    <div className="w-full image bg-black rounded-xl" style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '5rem 0'
+    }}>
       <center>
         <img
           src={baseUrl + "/image/" + name}
           alt="."
-          width={300}
-          height={200}
-          className="!w-[300px] !h-[200px] object-scale-down"
+          style={{
+            maxWidth: length > 1 ? '400px' : '30%',
+            maxHeight: length > 1 ? '300px' : '100%',
+            backgroundColor: '#ffffff14'
+          }}
         />
       </center>
-      <div className="infos">
-        <div className="info">
-          <p>Share</p>
-          <div className="flex">
-            <span>{baseUrl + "/share/" + name}</span>
+      <div className="infos" style={{
+        width: length > 1 ? '25rem' : '35rem',
+        maxWidth: "90%"
+      }}>
+        <div className="info" style={{ marginBottom: '1rem' }}>
+          <div className="flex items-center bg-black text-white px-3 py-1 rounded-fullflex items-center bg-black text-white px-3 py-1 rounded-full">
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>{baseUrl + "/share/" + name}</span>
 
             <button
-              className="btn !bg-primary"
+              className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
               onClick={() => handleCopy(baseUrl + "/share/" + name)}
             >
-              Copy
+              <i className="fa fa-copy"></i>
             </button>
           </div>
+
         </div>
 
-        <div className="info">
-          <p>Direct</p>
+        <div className="info" style={{ marginBottom: '1rem' }}>
 
-          <div className="flex">
-            <span>{baseUrl + "/image/" + name}</span>
+          <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>{baseUrl + "/image/" + name}</span>
 
             <button
-              className="btn !bg-primary"
+              className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
               onClick={() => handleCopy(baseUrl + "/image/" + name)}
             >
-              Copy
+              <i className="fa fa-copy" style={{ color: '#fff' }}></i>
             </button>
           </div>
         </div>
 
-        <div className="info">
-          <p>BBCode</p>
-
-          <div className="flex">
-            <span>[img]{baseUrl + "/image/" + name}[/img]</span>
+        <div className="info" style={{ marginBottom: '1rem' }}>
+          <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>[img]{baseUrl + "/image/" + name}[/img]</span>
 
             <button
-              className="btn !bg-primary"
+              className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
+
               onClick={() =>
                 handleCopy("[img]" + baseUrl + "/image/" + name + "[/img]")
               }
             >
-              Copy
+              <i className="fa fa-copy" style={{ color: '#fff' }}></i>
             </button>
           </div>
         </div>
 
-        <div className="info">
-          <p>HTML</p>
-          <div className="flex">
-            <span>{'<img src="' + baseUrl + "/image/" + name + '" />'}</span>
+        <div className="info" style={{ marginBottom: '1rem' }}>
+          <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>{'<img src="' + baseUrl + "/image/" + name + '" />'}</span>
 
             <button
-              className="btn !bg-primary"
+              className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
+
               onClick={() =>
                 handleCopy('<img src="' + baseUrl + "/image/" + name + '" />')
               }
             >
-              Copy
+              <i className="fa fa-copy" style={{ color: '#fff' }}></i>
             </button>
           </div>
         </div>
       </div>
+      
       {single && metadata && (
         <>
-          <div className="flex flex-row-reverse justify-between">
+          <div className="flex flex-row-reverse justify-between text-white" style={{maxWidth: "90%"}}>
             <div className="actions">
               <div className="relative group">
                 <button
@@ -424,13 +454,13 @@ export function ImageItem({
                   }}
                   className="comment-form flex items-center"
                 >
-                  <Avatar className="comment-user-image mr-4">
+                  <Avatar className="comment-user-image mr-4 text-white">
                     <AvatarImage src={baseUrl + `/image/me?token=${token}`} />
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
 
                   <Input
-                    className="form-control resize-none"
+                    className="form-control resize-none bg-white"
                     placeholder="Leave a comment..."
                     id={"comment-" + name}
                   />
@@ -465,7 +495,7 @@ export function ImageItem({
 
           {token && (
             <button
-              className="btn !bg-primary !rounded-lg !w-full mt-4"
+              className="btn !bg-primary !rounded-lg mt-4 text-white"
               onClick={() => {
                 ImageService.setProfileImage(name);
                 toast.success("Profile image set.");
@@ -474,8 +504,25 @@ export function ImageItem({
               Set as profile image
             </button>
           )}
+
         </>
       )}
     </div>
   );
 }
+
+const Info = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+
+  p {
+    color: white; 
+
+    span {
+      color: #ea1ebd;
+    }
+  }
+`;

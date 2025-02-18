@@ -10,7 +10,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        primary: "#70FF44",
+        primary: "#ff2092",
       },
       keyframes: {
         animatedgradient: {

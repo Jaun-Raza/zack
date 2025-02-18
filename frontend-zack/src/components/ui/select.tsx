@@ -10,7 +10,7 @@ const StyledSelectTrigger = styled(SelectPrimitive.Trigger)`
   font-size: 0.875rem;
   line-height: 1.25rem;
   background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
-  box-shadow: 0px 2px 2px 7px rgba(90, 13, 100, 0.77);
+  box-shadow: 0px 0px 3px 5px rgba(90, 13, 100, 0.77);
   border-radius: 0.25rem;
   outline: none;
   color: #fff;
@@ -27,6 +27,7 @@ const StyledSelectTrigger = styled(SelectPrimitive.Trigger)`
     gap: 1rem;
     padding: 0 1rem;
     font-size: 1rem;
+    text-shadow: 0px 1.5px #00000078;
 
     div {
       div {
@@ -59,8 +60,9 @@ const StyledSelectContent = styled(SelectPrimitive.Content)`
   overflow: hidden;
   // padding: 0.5rem 0;
   border-radius: 0;
+  text-shadow: 0px 1.5px #00000078;
   // background: linear-gradient(to bottom right, #ff2092, rgb(214, 30, 238));
-  box-shadow: 0px 2.5px 2px 7px rgba(90, 13, 100, 0.73);
+  box-shadow: 0px 2.5px 3px 5px rgba(90, 13, 100, 0.73);
   color: #fff;
   border-radius: 0 0 5px 5px;
   &[data-state="open"] {

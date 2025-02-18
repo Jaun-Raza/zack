@@ -2,7 +2,7 @@ import "../styles/ex.css";
 
 function Faq() {
   return (
-    <div className="flex justify-center items-center custom-height">
+    <div className="flex justify-center items-center text-white custom-height">
       <div className="pri">
         <h2 className="font-bold">FAQ</h2>
         <br />

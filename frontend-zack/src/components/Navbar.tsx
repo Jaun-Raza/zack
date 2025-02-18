@@ -15,7 +15,7 @@ const ContainerFluid = styled.div`
   width: 100%;
   padding: 0 15px;
   margin: 0 auto;
-  background-color:rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.03);
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
 `;

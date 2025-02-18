@@ -20,8 +20,10 @@ import Upload from "../assets/images/upload.png"
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 15rem;
   height: 100vh;
+
+  
 `;
 
 const Homer = styled.div`

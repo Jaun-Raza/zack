@@ -2,7 +2,7 @@ import "../styles/ex.css";
 
 function Privacy() {
   return (
-    <div className="flex justify-center items-center custom-height">
+    <div className="flex justify-center items-center text-white custom-height">
       <div className="pri">
         <h2 className="font-bold">Our Privacy Policy</h2>
         <br />
