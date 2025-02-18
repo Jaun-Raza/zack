@@ -44,24 +44,26 @@ const Admin = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper scale={scale}>
       <Head>
         <div className="head-info">
           <h1>Admin Search</h1>
           <p>To only be used in emergencies, or legal action may be required</p>
         </div>
-
-        <div className="scale">
-          <span>Image Scale</span>
-          <RangeInput
-            type="range"
-            min="13"
-            max="100"
-            value={scale}
-            onChange={(e) => setScale(Number(e.target.value))}
-          />
-        </div>
       </Head>
+      
+      <div className="scale">
+        <div className="scaling-block">
+        <span>Image Scale</span>
+        <RangeInput
+          type="range"
+          min="13"
+          max="100"
+          value={scale}
+          onChange={(e) => setScale(Number(e.target.value))}
+        />
+        </div>
+      </div>
 
       <div className="flex items-center justify-center left-0 top-0 search">
         <Input
@@ -84,12 +86,49 @@ const Admin = () => {
 
             return image.user?.name === userId;
           })
-          .slice((page - 1) * 25, page * 25)
+          .slice((page - 1) * 12, page * 12)
           .map((image) => (
             // @ts-ignore 
-          <Image key={image.name} scale={scale} >
+          <Image key={image.name} scale={scale} style={{
+            // width: `${scale}px`,
+            height: `${scale * 10}px`
+          }} >
             <img src={baseUrl + "/image/" + image.name} alt="."  />
 
+            <div className="actions">
+
+              <button
+                className="btn"
+                style={{
+                  backgroundColor: '#CF5BEC',
+                  width: '1rem',
+                  height: '2.4rem',
+                  padding: '0 1.3rem',
+                  borderRadius: '1rem',
+                  fontSize: '1.1rem'
+                }}
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name);
+                  toast.success("Copied to clipboard!");
+                }}
+              >
+                <i className="fa fa-copy"></i>
+              </button>
+              <button
+                className="btn"
+                style={{
+                  backgroundColor: '#EC6060',
+                  width: '1rem',
+                  height: '2.4rem',
+                  padding: '0 1.3rem',
+                  borderRadius: '1rem',
+                  fontSize: '1.3rem'
+                }}
+                onClick={() => setDeleting(image.name)}
+              >
+                X
+              </button>
+            </div>
             <div className="actions">
 
               <button
@@ -148,7 +187,7 @@ const Admin = () => {
 
           {images.length} Images
           {Array.from({ length: Math.ceil(images.length / 12) })
-            .slice(Math.max(0, page - 4), page + 3)
+            .slice(Math.max(0, page - 4), 5)
             .map((_, i) => {
               const pageNum = Math.max(1, page - 3) + i;
               return (
@@ -240,12 +279,11 @@ const Admin = () => {
 export default Admin;
 
 
-const Wrapper = styled.section`
+const Wrapper = styled.section<{ scale: number }>`
   width: 100%;
-  height: 100%;
+  height: ${({scale}) => scale > 25 ? '100%' : '100vh'};
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
   color: white;
@@ -255,33 +293,40 @@ const Wrapper = styled.section`
   .search {
     width: 40%;
   }
+
+  .scale {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: -3rem;
+    
+    .scaling-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
     
 `
 const Head = styled.div`
- display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   justify-content: space-around;
-  padding-left: 20rem;
 
   p {
     color:rgba(255, 255, 255, 0.8);
   }
-
-  .scale {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-
-    span {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
+    
 `;
 const RangeInput = styled.input`
   -webkit-appearance: none;
@@ -329,9 +374,7 @@ const Images = styled.section`
     margin: auto;
   }
 `
-const Image = styled.div<{ scale: number }>`
-  width: ${({ scale }) => scale}%;
- height: ${({ scale }) => scale * 10}px;
+const Image = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
@@ -393,7 +436,7 @@ const Image = styled.div<{ scale: number }>`
 `;
 
 const FakeImage = styled.section`
-  background-color: #fff;
+  background-color: rgba(48, 47, 47, 0.34);
   width: 13rem;
   height: 8rem;
   border-radius: 1rem;

@@ -45,30 +45,29 @@ export default function List() {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper scale={scale}>
       <Head>
-        <div className="head-info">
-          <h1>Your Photos</h1>
-          <p>Your photos are memories for a lifetime. Save them here.</p>
-        </div>
-
-        <div className="scale">
-          <span>Image Scale</span>
-          <RangeInput
-            type="range"
-            min="13"
-            max="100"
-            value={scale}
-            onChange={(e) => setScale(Number(e.target.value))}
-          />
-        </div>
+        <h1>Your Photos</h1>
+        <p>Your photos are memories for a lifetime. Save them here.</p>
       </Head>
+      <div className="scale">
+        <div className="scaling-block">
+        <span>Image Scale</span>
+        <RangeInput
+          type="range"
+          min="13"
+          max="100"
+          value={scale}
+          onChange={(e) => setScale(Number(e.target.value))}
+        />
+        </div>
+      </div>
 
       <Images>
         {images.slice((page - 1) * 12, page * 12).map((image) => (
           // @ts-ignore
           <Image key={image.name} scale={scale} >
-            <img src={baseUrl + "/image/" + image.name} alt="."  />
+            <img src={baseUrl + "/image/" + image.name} alt="." />
 
             <div className="actions">
 
@@ -128,7 +127,7 @@ export default function List() {
 
           {images.length} Images
           {Array.from({ length: Math.ceil(images.length / 12) })
-            .slice(Math.max(0, page - 4), page + 3)
+            .slice(Math.max(0, page - 4), 5)
             .map((_, i) => {
               const pageNum = Math.max(1, page - 3) + i;
               return (
@@ -151,7 +150,7 @@ export default function List() {
 
           {page < Math.ceil(images.length / 12) && (
             <button
-              className="rounded-lg text-right px-3 !bg-[#2c992d] text-white font-bold h-6 flex items-center"
+              className="rounded-lg text-right px-3 !bg-primary text-white font-bold h-6 flex items-center"
               onClick={() => setPage((p) => Math.min(Math.ceil(images.length / 12), p + 1))}
             >
               →
@@ -217,45 +216,51 @@ export default function List() {
   );
 }
 
-const Wrapper = styled.section`
+const Wrapper = styled.section<{ scale: number }>`
   width: 100%;
-  height: 100%;
+  height: ${({scale}) => scale > 25 ? '100%' : '100vh'};
   display: flex;
   background-color: rgb(0, 0, 0);
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
   color: white;
   padding: 0 1rem;
   margin: 3rem 0;
-  `
-  
-  const Head = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
+
+  .scale {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: -4rem;
+    
+    .scaling-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+`
+
+const Head = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   justify-content: space-around;
-  padding-left: 20rem;
 
   p {
     color:rgba(255, 255, 255, 0.8);
-    }
-    
-    .scale {
-      display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-    
-    span {
-      font-size: 16px;
-      font-weight: bold;
-      }
   }
+    
 `;
 
 const RangeInput = styled.input`
@@ -369,7 +374,7 @@ const Image = styled.div<{ scale: number }>`
 `;
 
 const FakeImage = styled.section`
-  background-color: #fff;
+  background-color:rgba(48, 47, 47, 0.34);
   width: 13rem;
   height: 8rem;
   border-radius: 1rem;

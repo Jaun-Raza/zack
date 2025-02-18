@@ -222,11 +222,11 @@ const UploadLabel = styled.label`
   border-radius: 5px;
   overflow: hidden;
   margin: auto;
-  width: 40%;
+  width: 35%;
 
   span {
     margin: auto;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 300;
     display: flex;
     gap: 5px;

@@ -13,7 +13,7 @@ import { ImageService } from "../services/apiService";
 import styled from "styled-components";
 import { createCircularImage, createHexagonImage } from "../utils/imageUtils";
 import Circle from '../assets/images/circle.png'
-import Hectagon from '../assets/images/hectagon.png'
+import Hexagon from '../assets/images/Hexagon.png'
 import RoundedSquare from '../assets/images/rounded_square.png'
 import Upload from "../assets/images/upload.png"
 
@@ -208,16 +208,17 @@ export default function Animation() {
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent className="upload-main !h-full">
-            <SelectItem value="1"><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
-              <img style={{width: '25px'}} src={Circle} alt="rounded" /> <span >Circular</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
-        height: '100%'}} /></div></div></SelectItem>
           
-              <SelectItem value="2" style={{borderBottom: '1px solid black', borderTop: '1px solid black'}}><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
-              <img style={{width: '25px'}} src={RoundedSquare} alt="rounded" /> <span >Rounded</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+              <SelectItem value="1"><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
+              <img style={{width: '25px'}} src={RoundedSquare} alt="rounded" /> <span >Border</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+        height: '100%'}} /></div></div></SelectItem>
+
+            <SelectItem value="2" style={{borderTop: '1px solid black', borderBottom: '1px solid black'}}><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
+              <img style={{width: '25px'}} src={Circle} alt="rounded" /> <span >Circular</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
         height: '100%'}} /></div></div></SelectItem>
              
              <SelectItem value="3"><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
-              <img style={{width: '25px'}} src={Hectagon} alt="rounded" /> <span >Hectagon</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+              <img style={{width: '25px'}} src={Hexagon} alt="rounded" /> <span >Hexagon</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
         height: '100%'}} /></div></div></SelectItem>
             </SelectContent>
           </Select>
