@@ -191,7 +191,7 @@ const UploadText = styled.p`
   margin-top: -10px;
 
   @media(max-width: 768px) {
-    font-size: 13px;
+    font-size: 12px;
     margin-top: -5px;
   }
 `;
@@ -232,11 +232,6 @@ const UploadLabel = styled.label`
   overflow: hidden;
   margin: auto;
   width: 35%;
-  
-  @media(max-width: 768px) {
-    width: 50%;
-    font-size: 1rem;
-  }
 
   span {
     margin: auto;
@@ -251,6 +246,14 @@ const UploadLabel = styled.label`
     img {
       width: 25px;
       text-shadow: 0px 1.5px #00000078;
+    }
+  }
+    
+   @media(max-width: 768px) {
+    width: 50%;
+    
+    span {
+      font-size: 1rem;
     }
   }
 `;

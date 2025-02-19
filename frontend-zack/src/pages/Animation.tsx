@@ -68,7 +68,7 @@ const Description = styled.p`
   margin-top: -8px;
 
   @media(max-width: 768px) {
-    font-size: 13px;
+    font-size: 15px;
     margin-top: -5px;
   }
 `;
