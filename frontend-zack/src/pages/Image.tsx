@@ -189,9 +189,9 @@ export default function Image() {
         />
       )}
       <Info>
-            <p><span>{count}</span> Images Uploaded</p>
-            <p><span>120</span> Screenshot Token</p>
-          </Info>
+        <p><span>{count}</span> Images Uploaded</p>
+        <p><span>120</span> Screenshot Token</p>
+      </Info>
     </div>
   );
 }
@@ -249,12 +249,13 @@ export function ImageItem({
   };
 
   return (
-    <div className="w-full image bg-black rounded-xl" style={{
+    <div className="w-full mb-10 image bg-black rounded-xl" style={{
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      margin: '5rem 0'
+      margin: '5rem 0',
+      marginBottom: '25rem'
     }}>
       <center>
         <img
@@ -331,10 +332,10 @@ export function ImageItem({
           </div>
         </div>
       </div>
-      
+
       {single && metadata && (
         <>
-          <div className="flex flex-row-reverse justify-between text-white" style={{maxWidth: "90%"}}>
+          <div className="flex flex-row-reverse justify-between text-white" style={{ maxWidth: "90%" }}>
             <div className="actions">
               <div className="relative group">
                 <button
@@ -471,23 +472,25 @@ export function ImageItem({
                 metadata.comments.map((comment) => (
                   <div
                     key={comment.id}
-                    className="comment relative w-full flex items-center gap-2"
+                    className="comment relative w-full flex items-center gap-2 "
                   >
-                    <div className="flex items-center">
+                    <CommentBox>
                       <Avatar className="comment-user-image mr-4">
                         <AvatarImage
                           src={baseUrl + "/image/" + comment.user.profileImage}
                         />
                         <AvatarFallback>U</AvatarFallback>
                       </Avatar>
-                      <strong className="mr-2">{comment.user.name}: </strong>{" "}
-                      <span className="max-w-[500px] truncate">
-                        {comment.comment}
-                      </span>
+                      <div className="info">
+                        <strong>{comment.user.name}: </strong>{" "}
+                        <p>
+                          {comment.comment}
+                        </p>
+                      </div>
                       <span className="text-sm text-gray-500 ml-2 whitespace-nowrap">
                         {new Date(comment.date).toLocaleString()}
                       </span>
-                    </div>
+                    </CommentBox>
                   </div>
                 ))}
             </div>
@@ -510,6 +513,34 @@ export function ImageItem({
     </div>
   );
 }
+
+const CommentBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    p {
+      background: #000;
+      color: #fff;
+      text-align: left;
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+  
+  @media(max-width: 768px) {
+    flex-direction: column;  
+
+    span {
+      
+    }
+  }
+`;
 
 const Info = styled.div`
   margin-top: 3rem;

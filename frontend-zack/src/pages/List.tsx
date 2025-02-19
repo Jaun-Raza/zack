@@ -218,7 +218,7 @@ export default function List() {
 
 const Wrapper = styled.section<{ scale: number }>`
   width: 100%;
-  height: ${({scale}) => scale > 25 ? '100%' : '100vh'};
+  height: 100%;
   display: flex;
   background-color: rgb(0, 0, 0);
   flex-direction: column;
@@ -227,6 +227,7 @@ const Wrapper = styled.section<{ scale: number }>`
   color: white;
   padding: 0 1rem;
   margin: 3rem 0;
+  margin-bottom: 25rem;
 
   .scale {
     width: 80%;
@@ -245,6 +246,14 @@ const Wrapper = styled.section<{ scale: number }>`
         font-size: 16px;
         font-weight: bold;
       }
+    }
+  }
+
+  @media(max-width: 768px) {
+    
+    .scale {
+      margin: 0;
+      display: none;
     }
   }
 `
@@ -309,16 +318,31 @@ const Images = styled.section`
     gap: 1rem;
     margin: auto;
   }
+
+  @media(max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    
+    .image-skeleton {
+      justify-content: center;
+    }
+  }
 `
 const Image = styled.div<{ scale: number }>`
   width: ${({ scale }) => scale}%;
- height: ${({ scale }) => scale * 10}px;
+  height: ${({ scale }) => scale * 10}px;
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
   position: relative;
   overflow: hidden; 
   transition: all 0.3s ease-in-out;
+
+  @media(max-width: 768px) {
+    width: 100%;
+    height: fit-content;
+  }
 
   img {
     width: 100%;

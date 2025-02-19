@@ -189,6 +189,11 @@ const UploadText = styled.p`
   font-size: 18px;
   color: #fff;
   margin-top: -10px;
+
+  @media(max-width: 768px) {
+    font-size: 12px;
+    margin-top: -5px;
+  }
 `;
 
 const Content = styled.div`
@@ -202,6 +207,10 @@ const Title = styled.h2`
 
   span {
     color: #ea1ebd;
+  }
+
+  @media(max-width: 768px) {
+    font-size: 1.5rem;
   }
 `;
 
@@ -223,6 +232,11 @@ const UploadLabel = styled.label`
   overflow: hidden;
   margin: auto;
   width: 35%;
+  
+  @media(max-width: 768px) {
+    width: 50%;
+    font-size: 1rem;
+  }
 
   span {
     margin: auto;

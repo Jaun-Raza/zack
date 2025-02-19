@@ -2,7 +2,7 @@ import "../styles/ex.css";
 
 function Terms() {
   return (
-    <div className="flex justify-center items-center text-white custom-height">
+    <div className="flex justify-center items-center text-white custom-height mb-[25rem]">
       <div className="pri">
         <h2 className="font-bold">Terms of Service</h2>
         <br />

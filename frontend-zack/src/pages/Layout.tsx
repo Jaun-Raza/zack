@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Components
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 import { Particles } from "@/components/magicui/particles";
 import styled from "styled-components";
@@ -31,7 +30,6 @@ const Layout = () => {
           refresh 
         />
         <Outlet />
-        <Footer />
       </div>
       <ToastContainer
         position="top-center"

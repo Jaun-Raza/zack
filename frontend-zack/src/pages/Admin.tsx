@@ -89,10 +89,7 @@ const Admin = () => {
           .slice((page - 1) * 12, page * 12)
           .map((image) => (
             // @ts-ignore 
-          <Image key={image.name} scale={scale} style={{
-            // width: `${scale}px`,
-            height: `${scale * 10}px`
-          }} >
+          <Image key={image.name} scale={scale} >
             <img src={baseUrl + "/image/" + image.name} alt="."  />
 
             <div className="actions">
@@ -281,7 +278,7 @@ export default Admin;
 
 const Wrapper = styled.section<{ scale: number }>`
   width: 100%;
-  height: ${({scale}) => scale > 25 ? '100%' : '100vh'};
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,6 +286,7 @@ const Wrapper = styled.section<{ scale: number }>`
   color: white;
   margin: 3rem 0;
   background-color: rgb(0, 0, 0);
+  margin-bottom: 25rem;
 
   .search {
     width: 40%;
@@ -311,6 +309,17 @@ const Wrapper = styled.section<{ scale: number }>`
         font-size: 16px;
         font-weight: bold;
       }
+    }
+  }
+
+  @media(max-width: 768px) {
+    .search {
+      width: 80%;
+    }  
+
+    .scale {
+      margin: 0;
+      display: none;
     }
   }
     
@@ -373,14 +382,30 @@ const Images = styled.section`
     gap: 1rem;
     margin: auto;
   }
+
+   @media(max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    
+    .image-skeleton {
+      justify-content: center;
+    }
+  }
 `
-const Image = styled.div`
+const Image = styled.div<{ scale: number }>`
+  height: ${({ scale }) => scale * 10}px;
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
   position: relative;
   overflow: hidden; 
   transition: all 0.3s ease-in-out;
+
+  @media(max-width: 768px) {
+    width: 90%;
+    height: fit-content;
+  }
 
   img {
     width: 100%;

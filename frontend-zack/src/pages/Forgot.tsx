@@ -9,8 +9,7 @@ const ForgotContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-
-  
+  margin-bottom: 25rem;
 `;
 
 const AuthForm = styled.div`

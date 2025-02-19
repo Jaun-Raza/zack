@@ -8,7 +8,6 @@ const StyledSelectTrigger = styled(SelectPrimitive.Trigger)`
   align-items: center;
   justify-content: space-between;
   font-size: 0.875rem;
-  line-height: 1.25rem;
   background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
   box-shadow: 0px 0px 3px 5px rgba(90, 13, 100, 0.77);
   border-radius: 0.25rem;
@@ -41,11 +40,19 @@ const StyledSelectTrigger = styled(SelectPrimitive.Trigger)`
   img {
     width: 30px;
   }
+
+  @media(max-width: 768px) {
+    width: 100%;
+
+    & > span {
+      font-size: 1rem;
+    }
+  }
 `;
 
 const StyledSelectIcon = styled(ChevronDown)`
-  height: 1.5rem;
-  width: 2rem;
+  height: 1.3rem;
+  width: 1.8rem;
 `;
 
 const StyledSelectScrollButton = styled.div`

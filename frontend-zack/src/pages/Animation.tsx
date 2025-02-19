@@ -39,6 +39,10 @@ const Title = styled.h2`
   gap: 8px;
   color: #fff;
   font-size: 2.5rem;
+
+  @media(max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const GradientText = styled.span`
@@ -50,7 +54,7 @@ const GradientText = styled.span`
 const Badge = styled.span`
   background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
   color: black;
-  font-size: 24px;
+  font-size: 15px;
   padding: 0 2px;
   display: inline-block;
   margin-left: 8px;
@@ -62,6 +66,11 @@ const Description = styled.p`
   font-size: 18px;
   color: #fff;
   margin-top: -8px;
+
+  @media(max-width: 768px) {
+    font-size: 15px;
+    margin-top: -5px;
+  }
 `;
 
 const UploadButton = styled.button`

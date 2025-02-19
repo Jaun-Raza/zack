@@ -22,6 +22,8 @@ import Faq from "./pages/Faq";
 import List from "./pages/List";
 import Admin from "./pages/Admin";
 
+import Footer from "./components/Footer";
+
 function App() {
   return (
     <Router>
@@ -43,6 +45,7 @@ function App() {
           <Route path="faq" element={<Faq />} />
         </Route>
       </Routes>
+        <Footer />
     </Router>
   );
 }
