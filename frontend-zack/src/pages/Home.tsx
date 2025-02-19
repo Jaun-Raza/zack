@@ -191,7 +191,7 @@ const UploadText = styled.p`
   margin-top: -10px;
 
   @media(max-width: 768px) {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: -5px;
   }
 `;
