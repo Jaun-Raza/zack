@@ -115,49 +115,46 @@ export default function List() {
       </Images>
 
       <div className="flex">
-        <div className="flex gap-2">
-          {page > 1 && (
+      <Pagination>
+          <p><span>{images.length}</span> Images</p>
+          <div className="pages">
             <button
-              className="rounded-lg text-right px-3 !bg-primary text-white font-bold h-6 flex items-center"
+              className="rounded-lg !bg-primary text-white font-bold items-center"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
             >
               ←
             </button>
-          )}
 
-          {images.length} Images
-          {Array.from({ length: Math.ceil(images.length / 12) })
-            .slice(Math.max(0, page - 4), 5)
-            .map((_, i) => {
-              const pageNum = Math.max(1, page - 3) + i;
+            {Array.from({ length: 5 }).map((_, i) => {
+              const totalPages = Math.ceil(images.length / 12);
+              let startPage = Math.max(1, page - 2); 
+
+              if (startPage + 4 > totalPages) {
+                startPage = Math.max(1, totalPages - 4);
+              }
+
+              const pageNum = startPage + i;
               return (
                 <button
-                  style={{
-                    background: page === 1 ? 'linear-gradient(to bottom right, rgb(165, 24, 184), #ff2092)' : 'linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092)',
-                    borderRadius: '1rem',
-                    padding: '0',
-                    width: '1.5rem',
-                  }}
                   key={pageNum}
-                  className={`px-3 h-6 font-bold ${pageNum === page ? "text-white" : "!bg-[#2c992d] text-white"
-                    } rounded-lg`}
                   onClick={() => setPage(pageNum)}
+                  className="page"
                 >
                   {pageNum}
                 </button>
               );
             })}
 
-
-          {page < Math.ceil(images.length / 12) && (
             <button
-              className="rounded-lg text-right px-3 !bg-primary text-white font-bold h-6 flex items-center"
+              className="rounded-lg !bg-primary text-white font-bold items-center"
               onClick={() => setPage((p) => Math.min(Math.ceil(images.length / 12), p + 1))}
+              disabled={page === Math.ceil(images.length / 12)}
             >
               →
             </button>
-          )}
-        </div>
+          </div>
+        </Pagination>
 
 
         {createPortal(
@@ -395,6 +392,41 @@ const Image = styled.div<{ scale: number }>`
 
   .btn:hover {
     background: rgba(0, 0, 0, 0.8);
+  }
+`;
+
+const Pagination = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  p {
+    span {
+      color: #ff2092;
+      text-shadow: 1px 1px 3px #ff2092;
+    }
+  }
+
+  .pages {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    .page {
+      margin: 0;
+      padding: 2px 10px;
+      border-radius: 0.5rem;
+      box-shadow: 0px 0px 2px 5px rgba(100, 13, 88, 0.77);
+      background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+    }
+
+    button {
+      background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+      box-shadow: 0px 0px 2px 5px rgba(100, 13, 88, 0.77);
+      margin: 0 5px;
+      padding: 3px 10px;
+      text-align: center;
+    }
   }
 `;
 
