@@ -183,7 +183,7 @@ const Admin = () => {
               ←
             </button>
 
-            {Array.from({ length: 5 }).map((_, i) => {
+            {Array.from({ length: (images.length / 12) < 5 ? (images.length / 12) : 5 }).map((_, i) => {
               const totalPages = Math.ceil(images.length / 12);
               let startPage = Math.max(1, page - 2); 
 
