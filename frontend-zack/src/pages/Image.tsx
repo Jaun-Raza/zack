@@ -164,6 +164,7 @@ export default function Image() {
                     single={false}
                     refetch={fetchImage}
                     length={name.length}
+                    slide={slide === index}
                   />
                 </CarouselItem>
               ))}
@@ -179,6 +180,7 @@ export default function Image() {
         </Carousel>
       )}
       {exist && names.length === 1 && (
+        // @ts-ignore
         <ImageItem
           name={names[0]}
           metadata={metadata?.[0] ?? null}
@@ -203,6 +205,7 @@ export function ImageItem({
   single,
   refetch,
   length,
+  slide
 }: {
   name: string;
   metadata: {
@@ -230,6 +233,7 @@ export function ImageItem({
   baseUrl: string;
   single: boolean;
   length: number;
+  slide: boolean;
   refetch: () => void;
 }) {
   const token = localStorage.getItem("token")
@@ -255,21 +259,21 @@ export function ImageItem({
       justifyContent: 'center',
       alignItems: 'center',
       margin: '5rem 0',
-      marginBottom: '25rem'
+      height: !slide ? '35rem' : ""
     }}>
       <center>
         <img
           src={baseUrl + "/image/" + name}
           alt="."
           style={{
-            maxWidth: length > 1 ? '400px' : '30%',
-            maxHeight: length > 1 ? '300px' : '100%',
+            maxWidth: length > 1 ? !slide ? '320px' : '400px' : '30%',
+            maxHeight: length > 1 ? !slide ? '220px' : '300px' : '100%',
             backgroundColor: '#ffffff14'
           }}
         />
       </center>
       <div className="infos" style={{
-        width: length > 1 ? '25rem' : '35rem',
+        width: length > 1 ? '25rem' : '25rem',
         maxWidth: "90%"
       }}>
         <div className="info" style={{ marginBottom: '1rem' }}>
@@ -548,6 +552,7 @@ const Info = styled.div`
   flex-direction: row;
   gap: 2rem;
   justify-content: center;
+  margin-bottom: 25rem;
 
   p {
     color: white; 

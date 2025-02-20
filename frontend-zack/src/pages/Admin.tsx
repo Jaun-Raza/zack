@@ -51,17 +51,17 @@ const Admin = () => {
           <p>To only be used in emergencies, or legal action may be required</p>
         </div>
       </Head>
-      
+
       <div className="scale">
         <div className="scaling-block">
-        <span>Image Scale</span>
-        <RangeInput
-          type="range"
-          min="13"
-          max="100"
-          value={scale}
-          onChange={(e) => setScale(Number(e.target.value))}
-        />
+          <span>Image Scale</span>
+          <RangeInput
+            type="range"
+            min="13"
+            max="100"
+            value={scale}
+            onChange={(e) => setScale(Number(e.target.value))}
+          />
         </div>
       </div>
 
@@ -89,82 +89,82 @@ const Admin = () => {
           .slice((page - 1) * 12, page * 12)
           .map((image) => (
             // @ts-ignore 
-          <Image key={image.name} scale={scale} >
-            <img src={baseUrl + "/image/" + image.name} alt="."  />
+            <Image key={image.name} scale={scale} >
+              <img src={baseUrl + "/image/" + image.name} alt="." />
 
-            <div className="actions">
+              <div className="actions">
 
-              <button
-                className="btn"
-                style={{
-                  backgroundColor: '#CF5BEC',
-                  width: '1rem',
-                  height: '2.4rem',
-                  padding: '0 1.3rem',
-                  borderRadius: '1rem',
-                  fontSize: '1.1rem'
-                }}
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name);
-                  toast.success("Copied to clipboard!");
-                }}
-              >
-                <i className="fa fa-copy"></i>
-              </button>
-              <button
-                className="btn"
-                style={{
-                  backgroundColor: '#EC6060',
-                  width: '1rem',
-                  height: '2.4rem',
-                  padding: '0 1.3rem',
-                  borderRadius: '1rem',
-                  fontSize: '1.3rem'
-                }}
-                onClick={() => setDeleting(image.name)}
-              >
-                X
-              </button>
-            </div>
-            <div className="actions">
+                <button
+                  className="btn"
+                  style={{
+                    backgroundColor: '#CF5BEC',
+                    width: '1rem',
+                    height: '2.4rem',
+                    padding: '0 1.3rem',
+                    borderRadius: '1rem',
+                    fontSize: '1.1rem'
+                  }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name);
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <i className="fa fa-copy"></i>
+                </button>
+                <button
+                  className="btn"
+                  style={{
+                    backgroundColor: '#EC6060',
+                    width: '1rem',
+                    height: '2.4rem',
+                    padding: '0 1.3rem',
+                    borderRadius: '1rem',
+                    fontSize: '1.3rem'
+                  }}
+                  onClick={() => setDeleting(image.name)}
+                >
+                  X
+                </button>
+              </div>
+              <div className="actions">
 
-              <button
-                className="btn"
-                style={{
-                  backgroundColor: '#CF5BEC',
-                  width: '1rem',
-                  height: '2.4rem',
-                  padding: '0 1.3rem',
-                  borderRadius: '1rem',
-                  fontSize: '1.1rem'
-                }}
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name);
-                  toast.success("Copied to clipboard!");
-                }}
-              >
-                <i className="fa fa-copy"></i>
-              </button>
-              <button
-                className="btn"
-                style={{
-                  backgroundColor: '#EC6060',
-                  width: '1rem',
-                  height: '2.4rem',
-                  padding: '0 1.3rem',
-                  borderRadius: '1rem',
-                  fontSize: '1.3rem'
-                }}
-                onClick={() => setDeleting(image.name)}
-              >
-                X
-              </button>
-            </div>
+                <button
+                  className="btn"
+                  style={{
+                    backgroundColor: '#CF5BEC',
+                    width: '1rem',
+                    height: '2.4rem',
+                    padding: '0 1.3rem',
+                    borderRadius: '1rem',
+                    fontSize: '1.1rem'
+                  }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name);
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <i className="fa fa-copy"></i>
+                </button>
+                <button
+                  className="btn"
+                  style={{
+                    backgroundColor: '#EC6060',
+                    width: '1rem',
+                    height: '2.4rem',
+                    padding: '0 1.3rem',
+                    borderRadius: '1rem',
+                    fontSize: '1.3rem'
+                  }}
+                  onClick={() => setDeleting(image.name)}
+                >
+                  X
+                </button>
+              </div>
 
-            {/* <div className="info">
+              {/* <div className="info">
               <input readOnly value={window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name} />
             </div> */}
-          </Image>
+            </Image>
           ))}
         <div className="image-skeleton">
           {!images.length && Array.from({ length: 20 }).map((_, i) => <FakeImage key={i} />)}
@@ -172,48 +172,48 @@ const Admin = () => {
       </Images>
 
       <div className="flex">
-        <div className="flex gap-2">
-          {page > 1 && (
+        <Pagination>
+          <p><span>{images.length}</span> Images</p>
+          <div className="pages">
             <button
-              className="rounded-lg text-right px-3 !bg-primary text-white font-bold h-6 flex items-center"
+              className="rounded-lg !bg-primary text-white font-bold items-center"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
             >
               ←
             </button>
-          )}
 
-          {images.length} Images
-          {Array.from({ length: Math.ceil(images.length / 12) })
-            .slice(Math.max(0, page - 4), 5)
-            .map((_, i) => {
-              const pageNum = Math.max(1, page - 3) + i;
+            {Array.from({ length: 5 }).map((_, i) => {
+              const totalPages = Math.ceil(images.length / 12);
+              let startPage = Math.max(1, page - 2); 
+
+              if (startPage + 4 > totalPages) {
+                startPage = Math.max(1, totalPages - 4);
+              }
+
+              const pageNum = startPage + i;
               return (
                 <button
-                  style={{
-                    background: page === 1 ? 'linear-gradient(to bottom right, rgb(165, 24, 184), #ff2092)' : 'linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092)',
-                    borderRadius: '0',
-                    padding: '0',
-                    width: '1.5rem',
-                  }}
                   key={pageNum}
-                  className={`px-3 h-6 font-bold ${pageNum === page ? "text-white" : "!bg-[#2c992d] text-white"
-                    } rounded-lg`}
                   onClick={() => setPage(pageNum)}
+                  className="page"
                 >
                   {pageNum}
                 </button>
               );
             })}
 
-          {page < Math.ceil(images.length / 12) && (
             <button
-              className="rounded-lg text-right px-3 !bg-primary text-white font-bold h-6 flex items-center"
+              className="rounded-lg !bg-primary text-white font-bold items-center"
               onClick={() => setPage((p) => Math.min(Math.ceil(images.length / 12), p + 1))}
+              disabled={page === Math.ceil(images.length / 12)}
             >
               →
             </button>
-          )}
-        </div>
+          </div>
+        </Pagination>
+
+
 
 
         {createPortal(
@@ -457,6 +457,41 @@ const Image = styled.div<{ scale: number }>`
 
   .btn:hover {
     background: rgba(0, 0, 0, 0.8);
+  }
+`;
+
+const Pagination = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  p {
+    span {
+      color: #ff2092;
+      text-shadow: 1px 1px 3px #ff2092;
+    }
+  }
+
+  .pages {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    .page {
+      margin: 0;
+      padding: 2px 10px;
+      border-radius: 0.5rem;
+      box-shadow: 0px 0px 2px 5px rgba(100, 13, 88, 0.77);
+      background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+    }
+
+    button {
+      background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+      box-shadow: 0px 0px 2px 5px rgba(100, 13, 88, 0.77);
+      margin: 0 5px;
+      padding: 3px 10px;
+      text-align: center;
+    }
   }
 `;
 

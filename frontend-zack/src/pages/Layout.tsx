@@ -14,7 +14,7 @@ const Layout = () => {
     <Wrapper>
       <div className="App">
         <Navbar />
-        <Particles
+        {/* <Particles
           className="absolute inset-0 particles"
           quantity={10}
           ease={10}
@@ -28,7 +28,7 @@ const Layout = () => {
           size={1}
           color={'#fff'}
           refresh 
-        />
+        /> */}
         <Outlet />
       </div>
       <ToastContainer

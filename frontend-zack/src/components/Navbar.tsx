@@ -148,6 +148,9 @@ const SignOutButton = styled.button`
   cursor: pointer;
   transition: background 0.3s;
 
+  &:hover {
+    background:rgb(209, 28, 170);
+  }
 `;
 
 const LoginButton = styled(Link)`
@@ -159,7 +162,7 @@ const LoginButton = styled(Link)`
   transition: background 0.3s;
 
   &:hover {
-    background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
+    background:rgb(209, 28, 170);
   }
 `;
 
@@ -171,12 +174,31 @@ const RegisterButton = styled(Link)`
   border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s;
+
+  &:hover {
+    background:rgb(209, 28, 170);
+  }
+`;
+
+const DownloadButton = styled.section`
+  background: #ea1ebd;
+  box-shadow: 1px 1px 10px 2px #ea1ebd; 
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background:rgb(209, 28, 170);
+  }
 `;
 
 
 const Navbar = () => {
   const path = useLocation();
 
+  const downloadLink = "https://mediafire.com/";
   const token = localStorage.getItem("token") ? localStorage.getItem("token") : null;
   const admin = localStorage.getItem("admin") === "true";
   let username = token ? localStorage.getItem("username") : null;
@@ -187,7 +209,8 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("admin");
-    window.location.reload()};
+    window.location.reload()
+  };
 
   return (
     <NavbarContainer>
@@ -224,6 +247,10 @@ const Navbar = () => {
             )}
           </NavList>
           <Actions>
+            {/* @ts-ignore */}
+            <DownloadButton href={downloadLink} target="_blank" rel="noreferrer">
+              Download
+            </DownloadButton>
             {token ? (
               <SignOutButton onClick={logOut}>Sign out from {username}</SignOutButton>
             ) : (

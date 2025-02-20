@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 
 const Footer = () => {
-  const downloadLink = "https://mediafire.com/";
 
   return (
     <FooterContainer>
@@ -15,9 +14,6 @@ const Footer = () => {
             uploading, with a unique effects feature which lets you upload
             circular, or animated images.
           </Description>
-          <DownloadButton href={downloadLink} target="_blank" rel="noreferrer">
-            Download
-          </DownloadButton>
         </LeftSection>
         <RightSection>
           <Column>
@@ -76,20 +72,6 @@ const LogoImg = styled.img`
 const Description = styled.p`
   color: #d1d5db;
   text-align: justify;
-`;
-
-const DownloadButton = styled.a`
-  background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
-  color: white;
-  padding: 0.3rem 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.3s;
-
-  &:hover {
-    background: linear-gradient(to bottom right, #ff2092, rgb(214, 30, 238));
-  }
 `;
 
 const RightSection = styled.div`

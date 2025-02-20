@@ -45,7 +45,7 @@ export default function List() {
   }, []);
 
   return (
-    <Wrapper scale={scale}>
+    <Wrapper>
       <Head>
         <h1>Your Photos</h1>
         <p>Your photos are memories for a lifetime. Save them here.</p>
@@ -134,7 +134,7 @@ export default function List() {
                 <button
                   style={{
                     background: page === 1 ? 'linear-gradient(to bottom right, rgb(165, 24, 184), #ff2092)' : 'linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092)',
-                    borderRadius: '0',
+                    borderRadius: '1rem',
                     padding: '0',
                     width: '1.5rem',
                   }}
@@ -147,6 +147,7 @@ export default function List() {
                 </button>
               );
             })}
+
 
           {page < Math.ceil(images.length / 12) && (
             <button
@@ -216,7 +217,7 @@ export default function List() {
   );
 }
 
-const Wrapper = styled.section<{ scale: number }>`
+const Wrapper = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
