@@ -110,7 +110,7 @@ export default function Home() {
         dragging > 0 ? (
           <UploadZone>
             <img src={Upload} alt="Upload" />
-            <h1>Drop and drop you image here to begin uploading!</h1>
+            <h1>Drag and drop you image here to begin uploading!</h1>
             <UploadText>
               Alternatively, you can select your images using the "upload"
               button.
@@ -158,10 +158,16 @@ export default function Home() {
 }
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   margin-top: 15rem;
-  height: 100vh;
+
+   @media(max-width: 1500px) {
+    height: 100vh;
+    margin-bottom: 25rem;
+  }
 `;
 
 const UploadZone = styled.div`
@@ -170,12 +176,13 @@ const UploadZone = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.91);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  color: #fff;
 
   h1 {
     font-size: 24px;

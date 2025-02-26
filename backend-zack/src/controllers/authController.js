@@ -82,7 +82,8 @@ const register = async (req, res) => {
 // @route   POST /auth/login
 // @access  Public
 const login = async (req, res) => {
-  const { name, password } = req.body;
+  const { name, password, ip } = req.body;
+  console.log(req.body)
 
   try {
     // Check if a user with the provided name exists
@@ -96,6 +97,28 @@ const login = async (req, res) => {
       return res.status(401).json({
         error: "Invalid email / username or password.",
       });
+    }
+
+    if (!existingUser.ip) {
+      if (name.includes("@")) {
+        await prisma.user.update({
+          where: {
+            email: name
+          },
+          data: {
+            ip,
+          },
+        });
+      } else {
+        await prisma.user.update({
+          where: {
+            name: name
+          },
+          data: {
+            ip,
+          },
+        });
+      }
     }
 
     // Compare passwords

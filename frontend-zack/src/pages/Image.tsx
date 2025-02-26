@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader"
 
 import "../styles/ex.css";
 import "../styles/image.css";
@@ -179,7 +180,7 @@ export default function Image() {
           />
         </Carousel>
       )}
-      {exist && names.length === 1 && (
+      {exist && names.length === 1 ? (
         // @ts-ignore
         <ImageItem
           name={names[0]}
@@ -189,7 +190,8 @@ export default function Image() {
           refetch={fetchImage}
           length={names.length}
         />
-      )}
+      ) : <Loader />
+    }
       <Info>
         <p><span>{count}</span> Images Uploaded</p>
         <p><span>120</span> Screenshot Token</p>
@@ -259,7 +261,7 @@ export function ImageItem({
       justifyContent: 'center',
       alignItems: 'center',
       margin: '5rem 0',
-      height: !slide ? '35rem' : ""
+      height: length > 1 ? !slide ? '35rem' : "" : ""
     }}>
       <center>
         <img
@@ -274,15 +276,15 @@ export function ImageItem({
       </center>
       <div className="infos" style={{
         width: length > 1 ? '25rem' : '25rem',
-        maxWidth: "90%"
+        maxWidth: "100%"
       }}>
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-fullflex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>{baseUrl + "/share/" + name}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + name}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
-              onClick={() => handleCopy(baseUrl + "/share/" + name)}
+              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + name)}
             >
               <i className="fa fa-copy"></i>
             </button>
@@ -293,11 +295,11 @@ export function ImageItem({
         <div className="info" style={{ marginBottom: '1rem' }}>
 
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>{baseUrl + "/image/" + name}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
-              onClick={() => handleCopy(baseUrl + "/image/" + name)}
+              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name)}
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
             </button>
@@ -306,13 +308,13 @@ export function ImageItem({
 
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>[img]{baseUrl + "/image/" + name}[/img]</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>[img]{window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name}[/img]</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
 
               onClick={() =>
-                handleCopy("[img]" + baseUrl + "/image/" + name + "[/img]")
+                handleCopy("[img]" + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name + "[/img]")
               }
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
@@ -322,13 +324,13 @@ export function ImageItem({
 
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '16px', height: '24px' }}>{'<img src="' + baseUrl + "/image/" + name + '" />'}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{'<img src="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name + '" />'}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
 
               onClick={() =>
-                handleCopy('<img src="' + baseUrl + "/image/" + name + '" />')
+                handleCopy('<img src="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name + '" />')
               }
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>

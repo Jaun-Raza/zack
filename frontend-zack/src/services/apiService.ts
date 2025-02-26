@@ -4,11 +4,12 @@ import axios, { AxiosProgressEvent } from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const AuthService = {
-  login: async (username: string, password: string) => {
+  login: async (username: string, password: string, ip: string) => {
     try {
       return await axios.post(`${API_URL}/auth/login`, {
         name: username,
         password,
+        ip,
       });
     } catch (e: any) {
       if (e.response && e.response.data.error) return e.response;

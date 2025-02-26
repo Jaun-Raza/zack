@@ -49,6 +49,7 @@ router.post(
   [
     body("name").trim().notEmpty().withMessage("Name is required."),
     body("password").trim().notEmpty().withMessage("Password is required."),
+    body("ip"),
   ],
   validate,
   login

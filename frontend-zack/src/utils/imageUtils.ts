@@ -89,4 +89,45 @@ function createHexagonImage(file: File, callback: (hexagonFile: File) => void) {
   img.src = URL.createObjectURL(file);
 }
 
-export { createCircularImage, createHexagonImage };
+function createRoundedImage(file: File, callback: (roundedFile: File) => void) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  const img = new Image();
+
+  if (!ctx) return;
+
+  img.onload = function () {
+    const size = Math.min(img.width, img.height);
+    const borderRadius = size * 0.3;
+
+    canvas.width = size;
+    canvas.height = size;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(borderRadius, 0);
+    ctx.lineTo(size - borderRadius, 0);
+    ctx.arcTo(size, 0, size, borderRadius, borderRadius);
+    ctx.lineTo(size, size - borderRadius);
+    ctx.arcTo(size, size, size - borderRadius, size, borderRadius);
+    ctx.lineTo(borderRadius, size);
+    ctx.arcTo(0, size, 0, size - borderRadius, borderRadius);
+    ctx.lineTo(0, borderRadius);
+    ctx.arcTo(0, 0, borderRadius, 0, borderRadius);
+    ctx.closePath();
+    ctx.clip();
+
+    ctx.clearRect(0, 0, size, size);
+    ctx.drawImage(img, 0, 0, size, size);
+    ctx.restore(); 
+
+    const roundedSquareImage = canvas.toDataURL(); 
+    const blob = dataURItoBlob(roundedSquareImage);
+    const roundedFile = new File([blob], file.name, { type: file.type });
+    callback(roundedFile);
+  };
+
+  img.src = URL.createObjectURL(file);
+}
+
+export { createCircularImage, createHexagonImage, createRoundedImage };

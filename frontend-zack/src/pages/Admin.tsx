@@ -197,6 +197,9 @@ const Admin = () => {
                   key={pageNum}
                   onClick={() => setPage(pageNum)}
                   className="page"
+                  style={{
+                    background:  pageNum === page ? 'rgb(214, 30, 238)' : 'linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092)'
+                  }}
                 >
                   {pageNum}
                 </button>
@@ -482,11 +485,9 @@ const Pagination = styled.div`
       padding: 2px 10px;
       border-radius: 0.5rem;
       box-shadow: 0px 0px 2px 5px rgba(100, 13, 88, 0.77);
-      background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
     }
 
     button {
-      background: linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092);
       box-shadow: 0px 0px 2px 5px rgba(100, 13, 88, 0.77);
       margin: 0 5px;
       padding: 3px 10px;

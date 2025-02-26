@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { AuthService } from "../services/apiService";
@@ -9,8 +9,14 @@ const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
-  margin-bottom: 25rem;
+  width: 100%;
+  height: 100%;
+  margin-top: 8rem;
+
+   @media(max-width: 1500px) {
+    height: 100vh;
+    margin-bottom: 25rem;
+  }
 `;
 
 const AuthForm = styled.div`
@@ -74,11 +80,12 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [ip, setIp] = useState("");
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await AuthService.login(username, password);
+      const response = await AuthService.login(username, password, ip);
       const token = response.data.token;
       if (token) {
         localStorage.setItem("token", token);
@@ -93,6 +100,16 @@ function Login() {
       console.error(e);
     }
   };
+
+
+  // @ts-ignore
+  useEffect(() => {
+    fetch("https://api.ipify.org?format=json").then((response) => {
+      return response.json()
+    }).then((data) => {
+      setIp(data.ip)
+    })
+  }, [])
 
   return (
     <LoginContainer>

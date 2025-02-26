@@ -8,8 +8,14 @@ const ForgotContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin-bottom: 25rem;
+  width: 100%;
+  height: 100%;
+  margin-top: 8rem;
+
+   @media(max-width: 1500px) {
+    height: 100vh;
+    margin-bottom: 25rem;
+  }
 `;
 
 const AuthForm = styled.div`
