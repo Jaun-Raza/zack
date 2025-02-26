@@ -18,7 +18,7 @@ import imageRoutes from './routes/imageRoutes.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.set('trust proxy', 1);
+app.set('trust proxy', 1)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -46,7 +46,6 @@ app.use((err, req, res, next) => {
 app.use('/auth', authRoutes);
 app.use('/image', imageRoutes);
 
-app.get('/ip', (request, response) => response.send(request.ip))
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/../build/index.html'));
 });
