@@ -119,7 +119,10 @@ export default function Animation() {
   const [color1, setColor1] = useState("#FF0000");
   const [color2, setColor2] = useState("#0000FF");
   const [uploading, setUploading] = useState(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState({
+    Images: 0,
+    screenShots: 0
+  });
 
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -198,15 +201,17 @@ export default function Animation() {
   };
 
   useEffect(() => {
-      ImageService.count()
-        .then((count) => {
-          setCount(count);
-        })
-        .catch((error) => {
-          console.error(error);
+    ImageService.count()
+      .then((count) => {
+        setCount({
+          Images: count.Images,
+          screenShots: count.screenShots
         });
-    }, []);
-
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   return (
     <Container>
       <Homer>
@@ -281,8 +286,8 @@ export default function Animation() {
           )}
         </div>
         <Info>
-          <p><span>{count}</span> Images Uploaded</p>
-          <p><span>120</span> Screenshot Token</p>
+          <p><span>{count.Images}</span> Images Uploaded</p>
+          <p><span>{count.screenShots}</span> Screenshot Token</p>
         </Info>
       </Homer>
     </Container>

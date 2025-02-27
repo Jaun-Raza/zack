@@ -22,7 +22,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import styled from 'styled-components';
 
 export default function Image() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState({
+    Images: 0,
+    screenShots: 0
+  });
   const { names: namesParam } = useParams();
   const names = useMemo(() => {
     if (!namesParam) return [];
@@ -119,13 +122,15 @@ export default function Image() {
   useEffect(() => {
     ImageService.count()
       .then((count) => {
-        setCount(count);
+        setCount({
+          Images: count.Images,
+          screenShots: count.screenShots
+        });
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-
   return (
     <div className="custom-height">
       <h1 className="mt-10 text-white">
@@ -194,9 +199,9 @@ export default function Image() {
       ) : names.length === 1 ? <Loader /> : null
     }
       <Info>
-        <p><span>{count}</span> Images Uploaded</p>
-        <p><span>120</span> Screenshot Token</p>
-      </Info>
+          <p><span>{count.Images}</span> Images Uploaded</p>
+          <p><span>{count.screenShots}</span> Screenshot Token</p>
+        </Info>
     </div>
   );
 }
