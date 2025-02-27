@@ -81,7 +81,7 @@ const ImageService = {
         return config;
       });
 
-      return await axiosClient.post(`${API_URL}/image/upload`, formData, {
+      return await axiosClient.post(`${API_URL}/image/upload?isScreenShot=false`, formData, {
         headers: {
           ...(token && { Authorization: `Bearer ${token}` }),
           "Content-Type": "multipart/form-data",

@@ -109,7 +109,7 @@ const upload = async (req, res) => {
           name: fileName,
           userId: req.user ? req.user.id : null,
           pub: !!(req.user && req.body.visible),
-          isScreenShot: req.isScreenShot
+          isScreenShot: req.params.isScreenShot
         },
       });
 
