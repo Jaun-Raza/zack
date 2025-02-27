@@ -38,37 +38,63 @@ const load = multer({ storage: storage });
 // @route   POST /image/upload
 // @access  Public
 const upload = async (req, res) => {
-  if (!req.files) {
-    return res.status(400).json({
-      error: "No file received.",
-    });
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ error: "No file received." });
   }
 
-  const result = [];
+  const user = await prisma.user.findFirst({
+    where: { name: req.user.name },
+  });
 
-  for (const file of req.files) {
-    if (!isImage(file)) {
-      return res.status(400).json({
-        error: "Uploaded file is not an image.",
-      });
-    }
+  const where = user ? { userId: req.user.id } : { pub: true };
 
-    if (file.size > 90 * 1024 * 1024) {
-      return res.status(400).json({ error: "Image size limit exceeded." });
-    }
+  const lastImage = await prisma.image.findFirst({
+    where,
+    orderBy: { createdAt: 'desc' },
+    select: { createdAt: true },
+  });
 
-    // Set up account credentials
-    const b2 = new B2({
-      accountId: process.env.B2_APPLICATION_KEY_ID,
-      applicationKey: process.env.B2_APPLICATION_KEY,
-    });
+  const currentTime = new Date();
+  const lastImageUploadTime = lastImage ? new Date(lastImage.createdAt) : null;
+  const oneHourLater = lastImageUploadTime ? new Date(lastImageUploadTime.getTime() + 60 * 60 * 1000) : null;
+  
+  let userUploads = parseInt(user?.uploads || 0);
+  const uploadLimit = parseInt(process.env.UPLOADPERHOUR);
+  const filesToUpload = req.files.length;
 
-    try {
+  if (!lastImageUploadTime || currentTime >= oneHourLater) {
+    userUploads = uploadLimit;
+  }
+
+  if (userUploads < 1 || (oneHourLater && currentTime < oneHourLater && userUploads < filesToUpload)) {
+    return res.status(500).json({ error: `You have only ${userUploads} uploads left in the current hour!` });
+  }
+
+  if (uploadLimit < filesToUpload) {
+    return res.status(500).json({ error: `Your limit of uploading/hour is only ${uploadLimit}!` });
+  }
+
+  const b2 = new B2({
+    accountId: process.env.B2_APPLICATION_KEY_ID,
+    applicationKey: process.env.B2_APPLICATION_KEY,
+  });
+
+  try {
+    const r = await b2.authorize();;
+    const result = [];
+
+    for (const file of req.files) {
+      if (!isImage(file)) {
+        return res.status(400).json({ error: "Uploaded file is not an image." });
+      }
+
+      if (file.size > 90 * 1024 * 1024) {
+        return res.status(400).json({ error: "Image size limit exceeded." });
+      }
+
       const fileName = generateUniqueString() + path.extname(file.originalname);
       const fileStream = fs.createReadStream(file.path);
 
-      // Await authorization and upload
-      const r = await b2.authorize();
       await b2.uploadAny({
         bucketId: process.env.B2_BUCKET_ID,
         fileName,
@@ -76,10 +102,8 @@ const upload = async (req, res) => {
         data: fileStream,
       });
 
-      // Delete the file
       fs.unlinkSync(file.path);
 
-      // Insert into the database
       await prisma.image.create({
         data: {
           name: fileName,
@@ -89,19 +113,21 @@ const upload = async (req, res) => {
       });
 
       result.push(fileName);
-    } catch (e) {
-      console.log(e);
-      res.status(500).json({
-        error: "Internal Server Error",
-      });
     }
-  }
 
-  res.status(200).json({
-    message: "Image uploaded successfully.",
-    files: result,
-  });
+    await prisma.user.update({
+      where: { id: req.user.id },
+      data: { uploads: Math.max(0, userUploads - filesToUpload).toString() },
+    });
+
+    return res.status(200).json({ message: "Image uploaded successfully.", files: result });
+
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 };
+
 
 const setProfile = async (req, res) => {
   const { name } = req.body;
@@ -133,7 +159,7 @@ const setProfile = async (req, res) => {
 const get = async (req, res) => {
   const name = req.params.name;
   const noRedirect = req.query["no-redirect"];
-  console.log(name)
+
   try {
     const image = await prisma.image.findUnique({
       where: {
@@ -144,8 +170,8 @@ const get = async (req, res) => {
     if (!image) {
       return noRedirect
         ? res.status(404).json({
-            error: "The image doesn't exist.",
-          })
+          error: "The image doesn't exist.",
+        })
         : res.redirect(`${process.env.FRONTEND_URL}/?notfound=true`);
     }
 
@@ -156,7 +182,7 @@ const get = async (req, res) => {
     });
 
     await b2.authorize();
-    
+
     // Download
     const downloadResponse = await b2.downloadFileByName({
       bucketName: process.env.B2_BUCKET_NAME,
@@ -197,7 +223,7 @@ const getMe = async (req, res) => {
       accountId: process.env.B2_APPLICATION_KEY_ID,
       applicationKey: process.env.B2_APPLICATION_KEY,
     });
-    
+
     await b2.authorize();
 
     // Download

@@ -16,6 +16,7 @@ model User {
   updatedAt    DateTime  @updatedAt @map("updated_at")
   resetToken   String?
   ip           String?   
+  uploads      String?   @default("40")
   admin        Boolean   @default(false)
   profileImage String?   @map("profile_image")
   verified     Boolean   @default(false)

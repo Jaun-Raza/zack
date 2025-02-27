@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `users` ADD COLUMN `uploads` VARCHAR(191) NULL DEFAULT '40';
