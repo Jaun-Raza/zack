@@ -149,7 +149,7 @@ export default function Image() {
           setApi={setApi}
         >
           <CarouselContent>
-            {exist &&
+            {exist ?
               names.map((name, index) => (
                 <CarouselItem
                   key={name + "-" + index}
@@ -168,7 +168,8 @@ export default function Image() {
                     slide={slide === index}
                   />
                 </CarouselItem>
-              ))}
+              ))  : <Loader />
+            }
           </CarouselContent>
           <CarouselPrevious
             className="absolute md:left-[32%] top-1/2 !w-10 !h-10"
@@ -190,7 +191,7 @@ export default function Image() {
           refetch={fetchImage}
           length={names.length}
         />
-      ) : <Loader />
+      ) : names.length === 1 ? <Loader /> : null
     }
       <Info>
         <p><span>{count}</span> Images Uploaded</p>
@@ -268,8 +269,8 @@ export function ImageItem({
           src={baseUrl + "/image/" + name}
           alt="."
           style={{
-            maxWidth: length > 1 ? !slide ? '320px' : '400px' : '30%',
-            maxHeight: length > 1 ? !slide ? '220px' : '300px' : '100%',
+            maxWidth: length > 1 ? !slide ? '320px' : '400px' : '400px',
+            maxHeight: length > 1 ? !slide ? '220px' : '300px' : '300px',
             backgroundColor: '#ffffff14'
           }}
         />
@@ -280,11 +281,11 @@ export function ImageItem({
       }}>
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-fullflex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + name}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname  + "/share/" + name}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
-              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + name)}
+              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname  + "/share/" + name)}
             >
               <i className="fa fa-copy"></i>
             </button>
@@ -295,11 +296,11 @@ export function ImageItem({
         <div className="info" style={{ marginBottom: '1rem' }}>
 
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname  + "/image/" + name}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
-              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name)}
+              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname  + "/image/" + name)}
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
             </button>
@@ -308,13 +309,13 @@ export function ImageItem({
 
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>[img]{window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name}[/img]</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>[img]{window.location.protocol + '//' + window.location.hostname  + "/image/" + name}[/img]</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
 
               onClick={() =>
-                handleCopy("[img]" + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name + "[/img]")
+                handleCopy("[img]" + window.location.protocol + '//' + window.location.hostname  + "/image/" + name + "[/img]")
               }
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
@@ -324,13 +325,13 @@ export function ImageItem({
 
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{'<img src="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name + '" />'}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{'<img src="' + window.location.protocol + '//' + window.location.hostname  + "/image/" + name + '" />'}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
 
               onClick={() =>
-                handleCopy('<img src="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/image/" + name + '" />')
+                handleCopy('<img src="' + window.location.protocol + '//' + window.location.hostname  + "/image/" + name + '" />')
               }
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>

@@ -99,7 +99,6 @@ function createRoundedImage(file: File, callback: (roundedFile: File) => void) {
   img.onload = function () {
     const size = Math.min(img.width, img.height);
     const borderRadius = size * 0.3;
-
     canvas.width = size;
     canvas.height = size;
 
@@ -118,10 +117,13 @@ function createRoundedImage(file: File, callback: (roundedFile: File) => void) {
     ctx.clip();
 
     ctx.clearRect(0, 0, size, size);
-    ctx.drawImage(img, 0, 0, size, size);
-    ctx.restore(); 
+    const x = (img.width - size) / 2;
+    const y = (img.height - size) / 2;
+    ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
 
-    const roundedSquareImage = canvas.toDataURL(); 
+    ctx.restore();
+
+    const roundedSquareImage = canvas.toDataURL();
     const blob = dataURItoBlob(roundedSquareImage);
     const roundedFile = new File([blob], file.name, { type: file.type });
     callback(roundedFile);

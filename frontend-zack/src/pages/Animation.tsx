@@ -16,6 +16,7 @@ import Circle from '../assets/images/circle.png'
 import Hexagon from '../assets/images/Hexagon.png'
 import RoundedSquare from '../assets/images/rounded_square.png'
 import Upload from "../assets/images/upload.png"
+import Border from "../assets/images/border.png"
 
 const Container = styled.div`
   width: 100%;
@@ -229,7 +230,7 @@ export default function Animation() {
             <SelectContent className="upload-main !h-full">
           
               <SelectItem value="1"><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
-              <img style={{width: '25px'}} src={RoundedSquare} alt="Border" /> <span >Border</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
+              <img style={{width: '25px'}} src={Border} alt="Border" /> <span >Border</span></div> <div style={{backgroundColor: '#0d0d0d45', padding: '5px 6px'}}><img src={Upload} alt="" style={{width: '35px',
         height: '100%'}} /></div></div></SelectItem>
 
             <SelectItem value="2" style={{borderTop: '1px solid black', borderBottom: '1px solid black'}}><div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}><div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', paddingLeft: '1rem'}}>
