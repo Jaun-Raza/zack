@@ -57,7 +57,7 @@ const upload = async (req, res) => {
   const currentTime = new Date();
   const lastImageUploadTime = lastImage ? new Date(lastImage.createdAt) : null;
   const oneHourLater = lastImageUploadTime ? new Date(lastImageUploadTime.getTime() + 60 * 60 * 1000) : null;
-  
+
   let userUploads = parseInt(user?.uploads || 0);
   const uploadLimit = parseInt(process.env.UPLOADPERHOUR);
   const filesToUpload = req.files.length;
@@ -103,13 +103,14 @@ const upload = async (req, res) => {
       });
 
       fs.unlinkSync(file.path);
-
+    
       await prisma.image.create({
         data: {
           name: fileName,
           userId: req.user ? req.user.id : null,
           pub: !!(req.user && req.body.visible),
-          isScreenShot: req.params.isScreenShot
+          isScreenShot: req.query.isScreenShot == "false" ? false : true,
+          ip: req.query.ip
         },
       });
 
@@ -559,10 +560,10 @@ const getCount = async (req, res) => {
 
     const Images = await prisma.image.count({
       where: {
-        isScreenShot: false  
+        isScreenShot: false
       }
     });
-    
+
     res.status(200).json({ screenShots, Images });
   } catch (e) {
     console.log(e);

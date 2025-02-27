@@ -17,12 +17,13 @@ const AuthService = {
     }
   },
 
-  register: async (username: string, email: string, password: string) => {
+  register: async (username: string, email: string, password: string, ip: string) => {
     try {
       return await axios.post(`${API_URL}/auth/register`, {
         name: username,
         email,
         password,
+        ip
       });
     } catch (e: any) {
       if (e.response && e.response.data.error) return e.response;
@@ -61,6 +62,7 @@ const ImageService = {
 
   upload: async (
     files: File[],
+    ip: String,
     progressCallback?: (progress: AxiosProgressEvent) => void
   ) => {
     try {
@@ -80,8 +82,8 @@ const ImageService = {
         }
         return config;
       });
-
-      return await axiosClient.post(`${API_URL}/image/upload?isScreenShot=false`, formData, {
+     
+      return await axiosClient.post(`${API_URL}/image/upload?isScreenShot=${false}&ip=${ip}`, formData, {
         headers: {
           ...(token && { Authorization: `Bearer ${token}` }),
           "Content-Type": "multipart/form-data",

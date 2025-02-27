@@ -17,15 +17,16 @@ export default function Home() {
     Images: 0,
     screenShots: 0
   });
+  const [ip, setIp] = useState("");
 
   const handleUpload = useCallback(
-    async (uploadedFile: File[]) => {
+    async (uploadedFile: File[], ip: string) => {
       if (!uploadedFile) return;
 
       setUploading(true);
 
       try {
-        const response = await ImageService.upload(uploadedFile, (progress) => {
+        const response = await ImageService.upload(uploadedFile, ip, (progress) => {
           const percentage = Math.round(
             (progress.loaded / (progress.total ?? 100)) * 100
           );
@@ -70,7 +71,7 @@ export default function Home() {
 
       const files = e.dataTransfer?.files;
       if (files && files.length > 0) {
-        handleUpload(Array.from(files));
+        handleUpload(Array.from(files), ip);
       }
     };
 
@@ -98,6 +99,12 @@ export default function Home() {
   }, [query]);
 
   useEffect(() => {
+    fetch("https://api.ipify.org?format=json").then((response) => {
+      return response.json()
+    }).then((data) => {
+      setIp(data.ip)
+    })
+
     ImageService.count()
       .then((count) => {
         setCount({
@@ -137,7 +144,7 @@ export default function Home() {
         <StyledInput
           type="file"
           id="imageUpload"
-          onChange={(e) => handleUpload(Array.from(e.target.files ?? []))}
+          onChange={(e) => handleUpload(Array.from(e.target.files ?? []), ip)}
           accept=".png,.jpg,.jpeg,.gif"
           hidden
           multiple

@@ -77,11 +77,12 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [ip, setIp] = useState("");
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await AuthService.register(username, email, password);
+      const response = await AuthService.register(username, email, password, ip);
       const token = response.data.token;
       if (token) {
         localStorage.setItem("token", token);
@@ -100,6 +101,15 @@ function SignUp() {
       console.error(e);
     }
   };
+
+  // @ts-ignore
+  useEffect(() => {
+    fetch("https://api.ipify.org?format=json").then((response) => {
+      return response.json()
+    }).then((data) => {
+      setIp(data.ip)
+    })
+  }, [])
 
   return (
     <SignUpContainer>

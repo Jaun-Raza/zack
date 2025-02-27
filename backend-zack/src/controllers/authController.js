@@ -14,10 +14,9 @@ const prisma = new PrismaClient();
 // @route   POST /auth/register
 // @access  Public
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, ip } = req.body;
 
   try {
-    // Check if a user with the same name or email already exists
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{ name: name }, { email: email }],
@@ -41,6 +40,7 @@ const register = async (req, res) => {
         email: email,
         password: hashedPassword,
         resetToken: resetToken,
+        ip,
       },
     });
 
@@ -83,7 +83,6 @@ const register = async (req, res) => {
 // @access  Public
 const login = async (req, res) => {
   const { name, password, ip } = req.body;
-  console.log(req.body)
 
   try {
     // Check if a user with the provided name exists
@@ -98,6 +97,18 @@ const login = async (req, res) => {
         error: "Invalid email / username or password.",
       });
     }
+
+    // Compare passwords
+    const passwordMatch = await bcrypt.compare(password, existingUser.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({
+        error: "Invalid email / username or password.",
+      });
+    }
+
+    // Generate JWT
+    const token = generateAccessToken(existingUser.id);
 
     if (!existingUser.ip) {
       if (name.includes("@")) {
@@ -120,18 +131,6 @@ const login = async (req, res) => {
         });
       }
     }
-
-    // Compare passwords
-    const passwordMatch = await bcrypt.compare(password, existingUser.password);
-
-    if (!passwordMatch) {
-      return res.status(401).json({
-        error: "Invalid email / username or password.",
-      });
-    }
-
-    // Generate JWT
-    const token = generateAccessToken(existingUser.id);
 
     res.status(200).json({
       message: "Successful login.",

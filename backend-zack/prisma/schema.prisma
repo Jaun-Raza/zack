@@ -32,6 +32,7 @@ model Image {
   name          String    @unique
   userId        Int?      @map("user")
   pub           Boolean   @default(false)
+  ip            String? 
   isScreenShot  Boolean?  @default(false)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")

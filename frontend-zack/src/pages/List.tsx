@@ -66,7 +66,7 @@ export default function List() {
       <Images>
         {images.slice((page - 1) * 12, page * 12).map((image) => (
           // @ts-ignore
-          <Image key={image.name} scale={scale} >
+          <Image key={image.name} scale={scale}>
             <img src={baseUrl + "/image/" + image.name} alt="." />
 
             <div className="actions">
@@ -110,7 +110,7 @@ export default function List() {
           </Image>
         ))}
         <div className="image-skeleton">
-          {!images.length && Array.from({ length: 20 }).map((_, i) => <FakeImage key={i} />)}
+          {!images.length && Array.from({ length: 12 }).map((_, i) => <FakeImage key={i} />)}
         </div>
       </Images>
 
@@ -304,12 +304,12 @@ const RangeInput = styled.input`
 
 const Images = styled.section`
   width: 80%;
+  height: 20rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 5rem;
+  gap: 1rem; 
   backdrop-filter: blur(10px);
   
   .image-skeleton {
@@ -321,6 +321,7 @@ const Images = styled.section`
   }
 
   @media(max-width: 768px) {
+    height: 100%;
     width: 100%;
     flex-direction: column;
     align-items: center;

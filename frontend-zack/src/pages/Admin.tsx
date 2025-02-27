@@ -167,7 +167,7 @@ const Admin = () => {
             </Image>
           ))}
         <div className="image-skeleton">
-          {!images.length && Array.from({ length: 20 }).map((_, i) => <FakeImage key={i} />)}
+          {!images.length && Array.from({ length: 12 }).map((_, i) => <FakeImage key={i} />)}
         </div>
       </Images>
 
@@ -371,12 +371,12 @@ const RangeInput = styled.input`
 
 const Images = styled.section`
   width: 80%;
+  height: 20rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 5rem;
   
   .image-skeleton {
     display: flex;
@@ -388,6 +388,7 @@ const Images = styled.section`
 
    @media(max-width: 768px) {
     width: 100%;
+    height: 100%;
     flex-direction: column;
     align-items: center;
     
