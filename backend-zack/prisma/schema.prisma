@@ -28,15 +28,16 @@ model User {
 }
 
 model Image {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  userId    Int?      @map("user")
-  pub       Boolean   @default(false)
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  comments  Comment[]
-  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes     Like[]
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  userId        Int?      @map("user")
+  pub           Boolean   @default(false)
+  isScreenShot  Boolean   @default(false)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  comments      Comment[]
+  user          User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes         Like[]
 
   @@index([userId], map: "images_user_fkey")
   @@map("images")

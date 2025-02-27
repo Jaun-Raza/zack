@@ -56,7 +56,7 @@ const AuthService = {
 const ImageService = {
   count: async () => {
     const response = await axios.get(`${API_URL}/image/count`);
-    return response.data.count;
+    return response.data;
   },
 
   upload: async (

@@ -13,7 +13,10 @@ export default function Home() {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [dragging, setDragging] = useState(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState({
+    Images: 0,
+    screenShots: 0
+  });
 
   const handleUpload = useCallback(
     async (uploadedFile: File[]) => {
@@ -97,7 +100,10 @@ export default function Home() {
   useEffect(() => {
     ImageService.count()
       .then((count) => {
-        setCount(count);
+        setCount({
+          Images: count.Images,
+          screenShots: count.screenShots
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -149,8 +155,8 @@ export default function Home() {
           </UploadLabel>
         )}
         <Info>
-          <p><span>{count}</span> Images Uploaded</p>
-          <p><span>120</span> Screenshot Token</p>
+          <p><span>{count.Images}</span> Images Uploaded</p>
+          <p><span>{count.screenShots}</span> Screenshot Token</p>
         </Info>
       </Content>
     </Container>

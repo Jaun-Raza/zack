@@ -109,6 +109,7 @@ const upload = async (req, res) => {
           name: fileName,
           userId: req.user ? req.user.id : null,
           pub: !!(req.user && req.body.visible),
+          isScreenShot: req.isScreenShot
         },
       });
 
@@ -550,8 +551,19 @@ const deleteImage = async (req, res) => {
 // @access  Public
 const getCount = async (req, res) => {
   try {
-    const count = await prisma.image.count();
-    res.status(200).json({ count });
+    const screenShots = await prisma.image.count({
+      where: {
+        isScreenShot: true
+      }
+    });
+
+    const Images = await prisma.image.count({
+      where: {
+        isScreenShot: false  
+      }
+    });
+    
+    res.status(200).json({ screenShots, Images });
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: "Internal Server Error" });
