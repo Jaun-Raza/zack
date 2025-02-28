@@ -27,7 +27,7 @@ app.use(cors());
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, '../build')));
 
-router.get('/test', function (req, res, next) {
+app.get('/test', function (req, res, next) {
     res.send("Your IP is: " + req.cf_ip);
     res.send("Your IP is: " + req.ip);
 });
