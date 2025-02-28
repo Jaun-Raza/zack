@@ -304,7 +304,8 @@ const RangeInput = styled.input`
 
 const Images = styled.section`
   width: 80%;
-  height: 20rem;
+  min-height: 20rem;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -332,6 +333,7 @@ const Images = styled.section`
   }
 `
 const Image = styled.div<{ scale: number }>`
+  width: ${({ scale }) => scale}%;
   height: ${({ scale }) => scale * 10}px;
   display: flex;
   flex-direction: column;
@@ -433,7 +435,7 @@ const Pagination = styled.div`
 
 const FakeImage = styled.section`
   background-color:rgba(48, 47, 47, 0.34);
-  width: 12rem;
+  width: 13rem;
   height: 8rem;
   border-radius: 1rem;
 `;

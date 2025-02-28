@@ -185,7 +185,7 @@ const Admin = () => {
 
             {Array.from({ length: Math.ceil(images.length / 12) < 5 ? Math.ceil(images.length / 12) : 5 }).map((_, i) => {
               const totalPages = Math.ceil(images.length / 12);
-              let startPage = Math.max(1, page - 2); 
+              let startPage = Math.max(1, page - 2);
 
               if (startPage + 4 > totalPages) {
                 startPage = Math.max(1, totalPages - 4);
@@ -198,7 +198,7 @@ const Admin = () => {
                   onClick={() => setPage(pageNum)}
                   className="page"
                   style={{
-                    background:  pageNum === page ? 'rgb(214, 30, 238)' : 'linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092)'
+                    background: pageNum === page ? 'rgb(214, 30, 238)' : 'linear-gradient(to bottom right, rgb(214, 30, 238), #ff2092)'
                   }}
                 >
                   {pageNum}
@@ -371,7 +371,8 @@ const RangeInput = styled.input`
 
 const Images = styled.section`
   width: 80%;
-  height: 20rem;
+   min-height: 20rem;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -398,6 +399,8 @@ const Images = styled.section`
   }
 `
 const Image = styled.div<{ scale: number }>`
+  min-width: 13%;
+  width: ${({ scale }) => scale}%;
   height: ${({ scale }) => scale * 10}px;
   display: flex;
   flex-direction: column;

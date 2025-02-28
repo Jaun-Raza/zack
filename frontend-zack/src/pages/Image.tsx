@@ -301,11 +301,11 @@ export function ImageItem({
         <div className="info" style={{ marginBottom: '1rem' }}>
 
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{window.location.protocol + '//' + window.location.hostname  + "/image/" + name}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{baseUrl  + "/image/" + name}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
-              onClick={() => handleCopy(window.location.protocol + '//' + window.location.hostname  + "/image/" + name)}
+              onClick={() => handleCopy(baseUrl  + "/image/" + name)}
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
             </button>
@@ -314,13 +314,13 @@ export function ImageItem({
 
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>[img]{window.location.protocol + '//' + window.location.hostname  + "/image/" + name}[/img]</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>[img]{baseUrl  + "/image/" + name}[/img]</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
 
               onClick={() =>
-                handleCopy("[img]" + window.location.protocol + '//' + window.location.hostname  + "/image/" + name + "[/img]")
+                handleCopy("[img]" + baseUrl  + "/image/" + name + "[/img]")
               }
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
@@ -330,13 +330,13 @@ export function ImageItem({
 
         <div className="info" style={{ marginBottom: '1rem' }}>
           <div className="flex items-center bg-black text-white px-3 py-1 rounded-full">
-            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{'<img src="' + window.location.protocol + '//' + window.location.hostname  + "/image/" + name + '" />'}</span>
+            <span style={{ borderTopLeftRadius: '5rem', borderEndStartRadius: '5rem', fontSize: '13px', height: '24px' }}>{'<img src="' + baseUrl  + "/image/" + name + '" />'}</span>
 
             <button
               className="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-r-full flex items-center"
 
               onClick={() =>
-                handleCopy('<img src="' + window.location.protocol + '//' + window.location.hostname  + "/image/" + name + '" />')
+                handleCopy('<img src="' + baseUrl  + "/image/" + name + '" />')
               }
             >
               <i className="fa fa-copy" style={{ color: '#fff' }}></i>
