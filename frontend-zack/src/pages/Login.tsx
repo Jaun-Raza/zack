@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { AuthService } from "../services/apiService";
@@ -80,12 +80,11 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [ip, setIp] = useState("");
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await AuthService.login(username, password, ip);
+      const response = await AuthService.login(username, password);
       const token = response.data.token;
       if (token) {
         localStorage.setItem("token", token);
@@ -100,16 +99,6 @@ function Login() {
       console.error(e);
     }
   };
-
-
-  // @ts-ignore
-  useEffect(() => {
-    fetch("https://api.ipify.org?format=json").then((response) => {
-      return response.json()
-    }).then((data) => {
-      setIp(data.ip)
-    })
-  }, [])
 
   return (
     <LoginContainer>

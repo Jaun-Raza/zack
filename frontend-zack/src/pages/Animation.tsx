@@ -119,7 +119,6 @@ export default function Animation() {
   const [color1, setColor1] = useState("#FF0000");
   const [color2, setColor2] = useState("#0000FF");
   const [uploading, setUploading] = useState(0);
-  const [ip, setIp] = useState("");
   const [count, setCount] = useState({
     Images: 0,
     screenShots: 0
@@ -180,7 +179,7 @@ export default function Animation() {
         });
       }
 
-      const response = await ImageService.upload([finalFile], ip);
+      const response = await ImageService.upload([finalFile]);
       const name = response.data.files.join(",");
       if (name) {
         navigate(`/share/${name}`);
@@ -214,14 +213,6 @@ export default function Animation() {
       });
   }, []);
 
-  // @ts-ignore
-  useEffect(() => {
-    fetch("https://api.ipify.org?format=json").then((response) => {
-      return response.json()
-    }).then((data) => {
-      setIp(data.ip)
-    })
-  }, [])
   return (
     <Container>
       <Homer>

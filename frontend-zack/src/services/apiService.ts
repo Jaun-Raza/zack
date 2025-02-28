@@ -4,12 +4,11 @@ import axios, { AxiosProgressEvent } from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const AuthService = {
-  login: async (username: string, password: string, ip: string) => {
+  login: async (username: string, password: string) => {
     try {
       return await axios.post(`${API_URL}/auth/login`, {
         name: username,
-        password,
-        ip,
+        password
       });
     } catch (e: any) {
       if (e.response && e.response.data.error) return e.response;
@@ -17,13 +16,12 @@ const AuthService = {
     }
   },
 
-  register: async (username: string, email: string, password: string, ip: string) => {
+  register: async (username: string, email: string, password: string) => {
     try {
       return await axios.post(`${API_URL}/auth/register`, {
         name: username,
         email,
-        password,
-        ip
+        password
       });
     } catch (e: any) {
       if (e.response && e.response.data.error) return e.response;
@@ -62,7 +60,6 @@ const ImageService = {
 
   upload: async (
     files: File[],
-    ip: String,
     progressCallback?: (progress: AxiosProgressEvent) => void
   ) => {
     try {
@@ -83,7 +80,7 @@ const ImageService = {
         return config;
       });
      
-      return await axiosClient.post(`${API_URL}/image/upload?isScreenShot=${false}&ip=${ip}`, formData, {
+      return await axiosClient.post(`${API_URL}/image/upload?isScreenShot=${false}`, formData, {
         headers: {
           ...(token && { Authorization: `Bearer ${token}` }),
           "Content-Type": "multipart/form-data",
