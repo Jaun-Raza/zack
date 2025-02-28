@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, '../build')));
 
 app.get('/test', function (req, res, next) {
     res.send("Your IP is: " + req.cf_ip);
-    res.send("Your IP is: " + req.ip);
+    console.log("Your IP is: " + req.ip);
 });
 
 // Routes
