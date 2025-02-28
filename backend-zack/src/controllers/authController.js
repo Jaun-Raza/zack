@@ -14,8 +14,9 @@ const prisma = new PrismaClient();
 // @route   POST /auth/register
 // @access  Public
 const register = async (req, res) => {
-  const { name, email, password, ip } = req.body;
-
+  const { name, email, password } = req.body;
+  let ip = req.cf_ip || req.ip;
+  
   try {
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -82,8 +83,9 @@ const register = async (req, res) => {
 // @route   POST /auth/login
 // @access  Public
 const login = async (req, res) => {
-  const { name, password, ip } = req.body;
-
+  const { name, password } = req.body;
+  let ip = req.cf_ip || req.ip;
+  console.log(ip);
   try {
     // Check if a user with the provided name exists
     const existingUser = await prisma.user.findFirst({

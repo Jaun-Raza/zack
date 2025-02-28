@@ -110,7 +110,7 @@ const upload = async (req, res) => {
           userId: req.user ? req.user.id : null,
           pub: !!(req.user && req.body.visible),
           isScreenShot: req.query.isScreenShot == "false" ? false : true,
-          ip: req.query.ip
+          ip: req.cf_ip || req.ip
         },
       });
 
