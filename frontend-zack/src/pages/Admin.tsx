@@ -105,7 +105,7 @@ const Admin = () => {
                     fontSize: '1.1rem'
                   }}
                   onClick={() => {
-                    navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + "/share/" + image.name);
+                    navigator.clipboard.writeText(window.location.protocol + '//' + window.location.hostname + "/share/" + image.name);
                     toast.success("Copied to clipboard!");
                   }}
                 >
