@@ -46,7 +46,7 @@ const upload = async (req, res) => {
     where: { name: req?.user?.name },
   }) || null
 
-  const where = req.user.name && user ? { userId: req.user.id } : { pub: true };
+  const where = req?.user?.name && user ? { userId: req.user.id } : { pub: true };
 
   const lastImage = await prisma.image.findFirst({
     where,
