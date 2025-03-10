@@ -117,10 +117,10 @@ const upload = async (req, res) => {
       result.push(fileName);
     }
 
-    await prisma.user.update({
-      where: { id: req.user.id },
+    req?.user?.id ? await prisma.user.update({
+      where: { id: req?.user?.id },
       data: { uploads: Math.max(0, userUploads - filesToUpload).toString() },
-    });
+    }) : null
 
     return res.status(200).json({ message: "Image uploaded successfully.", files: result });
 
